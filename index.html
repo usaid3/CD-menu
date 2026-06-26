@@ -65,13 +65,17 @@
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 80px;
-      font-size: 16px;
+      html {
+       scroll-behavior: smooth;
+       scroll-padding-top: 90px;
+       font-size: 16px;
+       -webkit-overflow-scrolling: touch;
+       scroll-snap-type: y proximity;
     }
 
-    body {
+     body {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: none;
       font-family: var(--font-body);
       background: var(--space-deep);
       color: var(--star-white);
@@ -613,7 +617,6 @@
       background: linear-gradient(135deg, var(--space-mid) 0%, var(--space-light) 100%);
       border-radius: 20px;
       overflow: hidden;
-      cursor: pointer;
       transition: var(--transition-smooth);
       box-shadow: var(--shadow-card);
       border: 1px solid rgba(168, 85, 247, 0.2);
@@ -729,15 +732,15 @@
       opacity: 0.9;
     }
 
-    /* ═══ ADD TO CART BUTTON ═══ */
+        /* ═══ ADD TO CART BUTTON — NOW CLICKABLE ═══ */
     .card-btn {
       align-self: flex-start;
-      padding: 0.7rem 1.5rem;
+      padding: 0.75rem 1.6rem;
       background: var(--grad-cosmic);
       background-size: 200% auto;
       color: var(--star-white);
       font-family: var(--font-heading);
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
@@ -750,12 +753,33 @@
       gap: 0.5rem;
       animation: gradientShift 4s ease infinite;
       margin-top: 0.5rem;
-      pointer-events: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      z-index: 5;
     }
 
-    .menu-card:hover .card-btn {
-      transform: scale(1.05);
-      box-shadow: 0 6px 25px var(--cosmic-purple-glow), 0 0 20px var(--nebula-pink-glow);
+    .card-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .card-btn:hover {
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 8px 30px var(--cosmic-purple-glow), 0 0 25px var(--nebula-pink-glow);
+    }
+
+    .card-btn:hover::before {
+      left: 100%;
+    }
+
+    .card-btn:active {
+      transform: scale(0.96);
     }
 
     /* ═══ CARD IMAGE (Right side or Left side) ═══ */
@@ -839,32 +863,6 @@
 
     .plus-one-animation.active {
       animation: plusOneFloat 1.2s ease-out forwards;
-    }
-
-    /* "TAP TO ADD" Hint */
-    .tap-hint {
-      position: absolute;
-      bottom: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: var(--font-heading);
-      font-size: 0.65rem;
-      color: var(--cosmic-cyan);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 5;
-      background: rgba(0, 217, 255, 0.1);
-      padding: 0.25rem 0.7rem;
-      border-radius: 20px;
-      border: 1px solid rgba(0, 217, 255, 0.3);
-      pointer-events: none;
-      white-space: nowrap;
-    }
-
-    .menu-card:hover .tap-hint {
-      opacity: 1;
     }
  /* ═══════════════════════════════════════════════════
        PART 2: Continuing inside <style> tag from Part 1
@@ -2024,7 +2022,7 @@
     </div>
 
     <!-- Scroll Indicator -->
-    <div class="scroll-indicator" onclick="document.getElementById('menuStart').scrollIntoView({behavior:'smooth'})" role="button" tabindex="0" aria-label="Scroll to menu">
+        <div class="scroll-indicator" onclick="smoothScrollToElement('menuStart')" role="button" tabindex="0" aria-label="Scroll to menu">
       <span>Launch Menu</span>
       <span class="arrow">🚀</span>
     </div>
@@ -2661,7 +2659,7 @@
       navInner.innerHTML = navHTML;
     }
 
-       /* ═══════════════════════════════════════════════════
+        /* ═══════════════════════════════════════════════════
        🎴 RENDER MENU SECTIONS — HORIZONTAL ALTERNATING
     ═══════════════════════════════════════════════════ */
     function renderMenuSections() {
@@ -2694,12 +2692,8 @@
           var cardId = 'card-' + catIndex + '-' + itemIndex;
           var fallbackImg = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22%3E%3Crect fill=%22%237b2d8e%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%22120%22%3E' + icon + '%3C/text%3E%3C/svg%3E';
 
-          // Whole card is clickable
-          html += '<div class="' + cardClass + '" id="' + cardId + '" ' +
-                  'onclick="addToCartFromCard(\'' + escapeStr(item.name) + '\', ' + item.price + ', \'' + escapeStr(item.img) + '\', \'' + escapeStr(category.name) + '\', \'' + cardId + '\')" ' +
-                  'role="button" tabindex="0" ' +
-                  'onkeydown="if(event.key===\'Enter\' || event.key===\' \'){event.preventDefault();this.click();}" ' +
-                  'aria-label="Add ' + item.name + ' to cart for ' + RESTAURANT.currency + ' ' + item.price + '">';
+          // Card — NO onclick on whole card now!
+          html += '<div class="' + cardClass + '" id="' + cardId + '">';
 
           // CARD CONTENT
           html += '<div class="card-content">';
@@ -2708,7 +2702,14 @@
           html += '</div>';
           html += '<p class="card-desc">' + item.desc + '</p>';
           html += '<div class="card-price"><span class="currency">' + RESTAURANT.currency + '</span> ' + item.price + '</div>';
-          html += '<button class="card-btn" type="button" tabindex="-1" aria-hidden="true">🛒 Add to Cart</button>';
+
+          // BUTTON — ye ab clickable hai!
+          html += '<button class="card-btn" type="button" ' +
+                  'onclick="addToCartFromCard(\'' + escapeStr(item.name) + '\', ' + item.price + ', \'' + escapeStr(item.img) + '\', \'' + escapeStr(category.name) + '\', \'' + cardId + '\')" ' +
+                  'aria-label="Add ' + item.name + ' to cart for ' + RESTAURANT.currency + ' ' + item.price + '">' +
+                  '🛒 Add to Cart' +
+                  '</button>';
+
           html += '</div>';
 
           // CARD IMAGE
@@ -2718,9 +2719,6 @@
 
           // "+1" Floating Animation
           html += '<div class="plus-one-animation">+1</div>';
-
-          // Tap Hint
-          html += '<div class="tap-hint">✨ Tap to add ✨</div>';
 
           html += '</div>'; // menu-card
         });
@@ -2774,15 +2772,62 @@
       return day + '/' + month + '/' + year + ' — ' + hours + ':' + minutes + ' ' + ampm;
     }
 
+        /* ═══════════════════════════════════════════════════
+       🌊 SMOOTH SCROLL TO ELEMENT (Helper)
+    ═══════════════════════════════════════════════════ */
+    function smoothScrollToElement(elementId) {
+      var element = document.getElementById(elementId);
+      if (!element) return;
+
+      var navHeight = 80;
+      var targetPosition = element.getBoundingClientRect().top + window.pageYOffset - navHeight;
+      smoothScrollTo(targetPosition, 1000);
+    }
+    
     /* ═══════════════════════════════════════════════════
        📑 SCROLL TO CATEGORY & SCROLL SPY
     ═══════════════════════════════════════════════════ */
-    function scrollToCategory(catId) {
+        function scrollToCategory(catId) {
       var element = document.getElementById(catId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setActiveNav(catId);
+      if (!element) return;
+
+      var navHeight = 80; // category nav height offset
+      var targetPosition = element.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+      smoothScrollTo(targetPosition, 800); // 800ms duration
+      setActiveNav(catId);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🌊 CUSTOM SMOOTH SCROLL — ULTRA SMOOTH!
+       Easing function for buttery smooth animation
+    ═══════════════════════════════════════════════════ */
+    function smoothScrollTo(targetPosition, duration) {
+      var startPosition = window.pageYOffset;
+      var distance = targetPosition - startPosition;
+      var startTime = null;
+
+      // Easing function — easeInOutCubic (very smooth)
+      function easeInOutCubic(t) {
+        return t < 0.5
+          ? 4 * t * t * t
+          : 1 - Math.pow(-2 * t + 2, 3) / 2;
       }
+
+      function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        var timeElapsed = currentTime - startTime;
+        var progress = Math.min(timeElapsed / duration, 1);
+        var easedProgress = easeInOutCubic(progress);
+
+        window.scrollTo(0, startPosition + distance * easedProgress);
+
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
+        }
+      }
+
+      requestAnimationFrame(animation);
     }
 
     function setActiveNav(catId) {
@@ -2795,19 +2840,24 @@
         }
       });
     }
-
-    function setupScrollSpy() {
+   
+        function setupScrollSpy() {
       var sections = document.querySelectorAll('.menu-section');
       var observerOptions = {
         root: null,
-        rootMargin: '-100px 0px -60% 0px',
-        threshold: 0
+        rootMargin: '-120px 0px -55% 0px',
+        threshold: [0, 0.1, 0.5]
       };
+
+      var lastActiveId = null;
 
       var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            setActiveNav(entry.target.id);
+          if (entry.isIntersecting && entry.intersectionRatio > 0) {
+            if (entry.target.id !== lastActiveId) {
+              lastActiveId = entry.target.id;
+              setActiveNav(entry.target.id);
+            }
           }
         });
       }, observerOptions);
@@ -3400,17 +3450,23 @@
       });
     }
 
-    /* ═══════════════════════════════════════════════════
-       🌃 NAVBAR HIDE/SHOW ON SCROLL
+        /* ═══════════════════════════════════════════════════
+       🌃 NAVBAR HIDE/SHOW ON SCROLL — SMOOTH
     ═══════════════════════════════════════════════════ */
     (function() {
       var categoryNav = null;
       var heroSection = null;
       var ticking = false;
+      var isVisible = false;
 
       document.addEventListener('DOMContentLoaded', function() {
         categoryNav = document.getElementById('categoryNav');
         heroSection = document.getElementById('hero');
+
+        if (categoryNav) {
+          categoryNav.style.transform = 'translateY(-100%)';
+          categoryNav.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        }
       });
 
       window.addEventListener('scroll', function() {
@@ -3421,19 +3477,21 @@
           });
           ticking = true;
         }
-      });
+      }, { passive: true });
 
       function handleNavVisibility() {
         if (!categoryNav || !heroSection) return;
         var heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
         var currentScrollY = window.scrollY || window.pageYOffset;
 
-        if (currentScrollY < heroBottom - 100) {
-          categoryNav.style.transform = 'translateY(-100%)';
-          categoryNav.style.transition = 'transform 0.3s ease';
-        } else {
+        var shouldShow = currentScrollY >= heroBottom - 150;
+
+        if (shouldShow && !isVisible) {
           categoryNav.style.transform = 'translateY(0)';
-          categoryNav.style.transition = 'transform 0.3s ease';
+          isVisible = true;
+        } else if (!shouldShow && isVisible) {
+          categoryNav.style.transform = 'translateY(-100%)';
+          isVisible = false;
         }
       }
     })();
