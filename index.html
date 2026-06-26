@@ -1,0 +1,3811 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Royal Feast — Cosmic Dine. An Intergalactic Dining Experience.">
+  <meta name="theme-color" content="#0a0e27">
+  <title>🌌 Royal Feast — Cosmic Dine</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Audiowide&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════════════
+       🌌 CSS VARIABLES — COSMIC DINE THEME
+    ═══════════════════════════════════════════════════ */
+    :root {
+      --space-deep: #050816;
+      --space-blue: #0a0e27;
+      --space-mid: #151a3a;
+      --space-light: #1f254a;
+      --cosmic-purple: #7b2d8e;
+      --cosmic-purple-light: #a855f7;
+      --cosmic-purple-glow: rgba(168, 85, 247, 0.4);
+      --nebula-pink: #ff2e63;
+      --nebula-pink-light: #ff5b8a;
+      --nebula-pink-glow: rgba(255, 46, 99, 0.4);
+      --galaxy-gold: #f0c040;
+      --galaxy-gold-light: #ffd966;
+      --galaxy-gold-glow: rgba(240, 192, 64, 0.4);
+      --cosmic-cyan: #00d9ff;
+      --cosmic-cyan-glow: rgba(0, 217, 255, 0.4);
+      --star-white: #eef0f2;
+      --star-dim: #a0a8c0;
+      --star-faint: #6a7090;
+
+      --grad-cosmic: linear-gradient(135deg, #7b2d8e 0%, #ff2e63 50%, #f0c040 100%);
+      --grad-nebula: linear-gradient(135deg, #1f254a 0%, #7b2d8e 50%, #ff2e63 100%);
+      --grad-galaxy: linear-gradient(180deg, #050816 0%, #1f254a 50%, #7b2d8e 100%);
+      --grad-aurora: linear-gradient(135deg, #00d9ff 0%, #a855f7 50%, #ff2e63 100%);
+
+      --shadow-cosmic: 0 8px 32px rgba(123, 45, 142, 0.3);
+      --shadow-glow: 0 0 20px var(--cosmic-purple-glow);
+      --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.5);
+
+      --font-display: 'Audiowide', cursive;
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-body: 'Outfit', sans-serif;
+      --font-tech: 'Orbitron', sans-serif;
+
+      --section-padding: clamp(2rem, 5vw, 4rem);
+      --card-radius: 16px;
+      --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🌟 CSS RESET & BASE
+    ═══════════════════════════════════════════════════ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--space-deep);
+      color: var(--star-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      font-weight: 400;
+      position: relative;
+    }
+
+    /* Cosmic background gradient overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse at 20% 30%, rgba(123, 45, 142, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(255, 46, 99, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(0, 217, 255, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: var(--space-blue); }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--cosmic-purple), var(--nebula-pink));
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover { background: var(--cosmic-purple-light); }
+
+    ::selection {
+      background: var(--cosmic-purple);
+      color: var(--star-white);
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; outline: none; font-family: inherit; }
+    ul, ol { list-style: none; }
+
+    /* ═══════════════════════════════════════════════════
+       ✨ KEYFRAME ANIMATIONS — COSMIC
+    ═══════════════════════════════════════════════════ */
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(5deg); }
+    }
+
+    @keyframes cosmicPulse {
+      0%, 100% {
+        box-shadow: 0 0 20px var(--cosmic-purple-glow),
+                    0 0 40px rgba(123, 45, 142, 0.1);
+      }
+      50% {
+        box-shadow: 0 0 30px var(--cosmic-purple-glow),
+                    0 0 60px rgba(123, 45, 142, 0.2);
+      }
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes rocketLaunch {
+      0% { transform: translateY(0) rotate(-45deg); opacity: 1; }
+      100% { transform: translateY(-200px) rotate(-45deg); opacity: 0; }
+    }
+
+    @keyframes planetOrbit {
+      from { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+      to { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+    }
+
+    @keyframes meteor {
+      0% { transform: translate(0, 0); opacity: 1; }
+      100% { transform: translate(-300px, 300px); opacity: 0; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes cardPulse {
+      0% { transform: scale(1); box-shadow: var(--shadow-card); }
+      50% {
+        transform: scale(1.03);
+        box-shadow: 0 0 40px var(--cosmic-purple-glow), 0 0 80px var(--nebula-pink-glow);
+      }
+      100% { transform: scale(1); box-shadow: var(--shadow-card); }
+    }
+
+    @keyframes cardFlip {
+      0% { transform: rotateY(0deg); }
+      50% { transform: rotateY(180deg); }
+      100% { transform: rotateY(0deg); }
+    }
+
+    @keyframes flipShowAdded {
+      0% { transform: rotateY(0deg); }
+      50% { transform: rotateY(90deg); }
+      51% { transform: rotateY(90deg); }
+      100% { transform: rotateY(0deg); }
+    }
+
+    @keyframes plusOneFloat {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+      }
+      20% {
+        opacity: 1;
+        transform: translate(-50%, -80%) scale(1.2);
+      }
+      80% {
+        opacity: 1;
+        transform: translate(-50%, -120%) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -180%) scale(0.8);
+      }
+    }
+
+    @keyframes cartBounce {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.3); }
+      60% { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes toastSlideIn {
+      from { transform: translateX(120%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes toastSlideOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(120%); opacity: 0; }
+    }
+
+    @keyframes toastProgress {
+      from { width: 100%; }
+      to { width: 0%; }
+    }
+
+    @keyframes nebulaPulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🌌 STAR FIELD BACKGROUND
+    ═══════════════════════════════════════════════════ */
+    .star-field {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      background: var(--star-white);
+      border-radius: 50%;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🚀 HERO SECTION — GALAXY VIEW
+    ═══════════════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1rem;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* Nebula glow effect */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background:
+        radial-gradient(circle, var(--cosmic-purple-glow) 0%, transparent 40%),
+        radial-gradient(circle at 40% 60%, var(--nebula-pink-glow) 0%, transparent 35%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      animation: nebulaPulse 8s infinite ease-in-out;
+      filter: blur(40px);
+    }
+
+    .hero > * { position: relative; z-index: 2; }
+
+    /* Orbiting Planet Decoration */
+    .planet-decoration {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .planet-1 {
+      top: 15%;
+      left: 10%;
+      background: radial-gradient(circle at 30% 30%, var(--galaxy-gold-light), var(--galaxy-gold), #9b6800);
+      box-shadow: 0 0 30px var(--galaxy-gold-glow);
+      animation: float 6s infinite ease-in-out;
+    }
+
+    .planet-2 {
+      top: 70%;
+      right: 8%;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle at 30% 30%, var(--cosmic-purple-light), var(--cosmic-purple), #3d1648);
+      box-shadow: 0 0 40px var(--cosmic-purple-glow);
+      animation: float 8s infinite ease-in-out 1s;
+    }
+
+    .planet-3 {
+      top: 25%;
+      right: 15%;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle at 30% 30%, var(--nebula-pink-light), var(--nebula-pink), #80152f);
+      box-shadow: 0 0 25px var(--nebula-pink-glow);
+      animation: float 5s infinite ease-in-out 2s;
+    }
+
+    .planet-4 {
+      bottom: 20%;
+      left: 8%;
+      width: 50px;
+      height: 50px;
+      background: radial-gradient(circle at 30% 30%, var(--cosmic-cyan), #006d80, #003540);
+      box-shadow: 0 0 30px var(--cosmic-cyan-glow);
+      animation: float 7s infinite ease-in-out 0.5s;
+    }
+
+    /* Planet with ring (Saturn-like) */
+    .planet-1::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotateX(75deg);
+      width: 120%; height: 120%;
+      border: 3px solid var(--galaxy-gold);
+      border-radius: 50%;
+      opacity: 0.6;
+    }
+
+    /* ═══ COSMIC LOGO ═══ */
+    .cosmic-logo {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 1.5rem;
+      position: relative;
+      border-radius: 50%;
+      background: var(--grad-cosmic);
+      background-size: 200% 200%;
+      animation: gradientShift 6s ease infinite, cosmicPulse 3s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+
+    .cosmic-logo::before {
+      content: '';
+      position: absolute;
+      top: -10px; left: -10px; right: -10px; bottom: -10px;
+      border: 2px dashed var(--cosmic-purple-light);
+      border-radius: 50%;
+      animation: planetOrbit 20s linear infinite;
+      opacity: 0.5;
+    }
+
+    /* ═══ HERO TITLE ═══ */
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      background: var(--grad-cosmic);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 4px;
+      margin-bottom: 0.5rem;
+      animation: gradientShift 4s ease infinite;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .hero-title-urdu {
+      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+      color: var(--galaxy-gold);
+      margin-bottom: 1rem;
+      direction: rtl;
+      text-shadow: 0 0 20px var(--galaxy-gold-glow);
+      font-family: var(--font-heading);
+      font-weight: 500;
+      letter-spacing: 2px;
+    }
+
+    /* ═══ TAGLINE BADGE ═══ */
+    .hero-tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.7rem 2rem;
+      margin: 1.5rem 0;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 50px;
+      font-family: var(--font-heading);
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
+      color: var(--star-white);
+      letter-spacing: 1px;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .hero-tagline .icon {
+      color: var(--galaxy-gold);
+      filter: drop-shadow(0 0 5px var(--galaxy-gold-glow));
+    }
+
+    /* ═══ HERO DETAILS ═══ */
+    .hero-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .hero-detail-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-heading);
+      font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+      color: var(--star-dim);
+      padding: 0.6rem 1.2rem;
+      background: rgba(31, 37, 74, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-radius: 12px;
+    }
+
+    .hero-detail-item .icon {
+      color: var(--cosmic-cyan);
+      font-size: 1.1rem;
+    }
+
+    /* ═══ SCROLL INDICATOR ═══ */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--cosmic-purple-light);
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      animation: float 3s infinite ease-in-out;
+    }
+
+    .scroll-indicator .arrow {
+      font-size: 1.5rem;
+      color: var(--galaxy-gold);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🌠 CATEGORY NAV — COSMIC PILLS
+    ═══════════════════════════════════════════════════ */
+    .category-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(5, 8, 22, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .category-nav-inner {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 0.5rem;
+      padding: 0.8rem 0.6rem;
+    }
+
+    .category-nav-inner::-webkit-scrollbar { display: none; }
+
+    .category-nav-btn {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      padding: 0.55rem 1.1rem;
+      font-family: var(--font-heading);
+      font-size: clamp(0.75rem, 1.6vw, 0.9rem);
+      font-weight: 500;
+      color: var(--star-dim);
+      background: rgba(31, 37, 74, 0.5);
+      border: 1px solid rgba(168, 85, 247, 0.15);
+      border-radius: 50px;
+      white-space: nowrap;
+      transition: var(--transition-smooth);
+      letter-spacing: 0.5px;
+    }
+
+    .category-nav-btn:hover {
+      color: var(--cosmic-purple-light);
+      background: rgba(168, 85, 247, 0.15);
+      border-color: rgba(168, 85, 247, 0.4);
+    }
+
+    .category-nav-btn.active {
+      color: var(--star-white);
+      background: var(--grad-cosmic);
+      background-size: 200% auto;
+      border-color: transparent;
+      font-weight: 700;
+      box-shadow: 0 0 15px var(--cosmic-purple-glow);
+      animation: gradientShift 3s ease infinite;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🌟 MENU SECTIONS
+    ═══════════════════════════════════════════════════ */
+    .menu-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .menu-section {
+      padding: var(--section-padding) 0;
+      position: relative;
+    }
+
+    /* Category Header */
+    .category-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .category-header .cat-icon {
+      display: inline-block;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      filter: drop-shadow(0 0 15px var(--cosmic-purple-glow));
+    }
+
+    .category-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      background: var(--grad-cosmic);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      animation: gradientShift 5s ease infinite;
+      margin-bottom: 0.8rem;
+    }
+
+    .category-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .category-divider .star-line {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cosmic-purple-light), transparent);
+    }
+
+    .category-divider .star-ornament {
+      color: var(--galaxy-gold);
+      font-size: 1.2rem;
+      filter: drop-shadow(0 0 8px var(--galaxy-gold-glow));
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🎴 TRIANGULAR CARDS — DIAGONAL SPLIT (UNIQUE!)
+    ═══════════════════════════════════════════════════ */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+
+    .menu-card {
+      position: relative;
+      background: var(--space-mid);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      height: 480px;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--cosmic-purple-light);
+      box-shadow:
+        0 15px 50px rgba(0, 0, 0, 0.6),
+        0 0 30px var(--cosmic-purple-glow);
+    }
+
+    /* Cosmic glow border on hover */
+    .menu-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: var(--card-radius);
+      padding: 2px;
+      background: var(--grad-aurora);
+      background-size: 200% 200%;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      animation: gradientShift 4s ease infinite;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .menu-card:hover::before {
+      opacity: 1;
+    }
+
+    /* PULSE on click */
+    .menu-card.pulsing {
+      animation: cardPulse 0.6s ease;
+    }
+
+    /* FLIP on click */
+    .menu-card.flipping {
+      animation: flipShowAdded 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Special crown */
+    .menu-card.special::after {
+      content: '⭐';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      background: var(--grad-cosmic);
+      border-radius: 50%;
+      z-index: 20;
+      box-shadow: 0 0 15px var(--galaxy-gold-glow);
+      filter: drop-shadow(0 0 5px var(--galaxy-gold));
+    }
+
+    /* Card Inner Wrapper (for diagonal split) */
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* TOP TRIANGLE (Upper-Left) */
+    .triangle-top {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      clip-path: polygon(0 0, 100% 0, 0 100%);
+      background: linear-gradient(135deg, var(--space-light) 0%, var(--space-mid) 60%, var(--cosmic-purple) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.5rem;
+      z-index: 2;
+    }
+
+    .triangle-top .top-image-wrapper {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--galaxy-gold);
+      box-shadow: 0 0 20px var(--galaxy-gold-glow);
+      margin-bottom: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .triangle-top .top-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .triangle-top .top-name {
+      font-family: var(--font-heading);
+      font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+      font-weight: 700;
+      color: var(--star-white);
+      max-width: 60%;
+      line-height: 1.3;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      margin-top: 0.3rem;
+    }
+
+    .triangle-top .top-desc {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      color: var(--star-dim);
+      max-width: 50%;
+      line-height: 1.4;
+      font-style: italic;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .triangle-top .top-price {
+      font-family: var(--font-display);
+      font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+      font-weight: 700;
+      color: var(--galaxy-gold);
+      text-shadow: 0 0 10px var(--galaxy-gold-glow);
+      align-self: flex-start;
+      margin-left: 25%;
+    }
+
+    /* DIAGONAL DIVIDER LINE */
+    .diagonal-line {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .diagonal-line::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 141.42%;
+      height: 3px;
+      background: var(--grad-cosmic);
+      background-size: 200% auto;
+      transform-origin: top left;
+      transform: rotate(45deg);
+      animation: gradientShift 3s ease infinite;
+      box-shadow: 0 0 20px var(--cosmic-purple-glow);
+    }
+
+    /* BOTTOM TRIANGLE (Lower-Right) */
+    .triangle-bottom {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+      background: linear-gradient(315deg, var(--space-light) 0%, var(--space-mid) 60%, var(--nebula-pink) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 1.5rem;
+      z-index: 2;
+    }
+
+    .triangle-bottom .bot-price {
+      font-family: var(--font-display);
+      font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+      font-weight: 700;
+      color: var(--galaxy-gold);
+      text-shadow: 0 0 10px var(--galaxy-gold-glow);
+      margin-right: 25%;
+    }
+
+    .triangle-bottom .bot-desc {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      color: var(--star-dim);
+      max-width: 50%;
+      line-height: 1.4;
+      font-style: italic;
+      text-align: right;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .triangle-bottom .bot-name {
+      font-family: var(--font-heading);
+      font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+      font-weight: 700;
+      color: var(--star-white);
+      max-width: 60%;
+      line-height: 1.3;
+      text-align: right;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      margin-bottom: 0.3rem;
+    }
+
+    .triangle-bottom .bot-image-wrapper {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--nebula-pink);
+      box-shadow: 0 0 20px var(--nebula-pink-glow);
+      flex-shrink: 0;
+    }
+
+    .triangle-bottom .bot-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* "+1" FLOATING ANIMATION */
+    .plus-one-animation {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--galaxy-gold);
+      text-shadow:
+        0 0 20px var(--galaxy-gold-glow),
+        0 0 40px var(--nebula-pink-glow);
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0;
+    }
+
+    .plus-one-animation.active {
+      animation: plusOneFloat 1.2s ease-out forwards;
+    }
+
+    /* "ADDED!" Overlay on flip */
+    .added-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--grad-cosmic);
+      background-size: 200% auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 40;
+      transition: opacity 0.3s ease;
+      animation: gradientShift 2s ease infinite;
+    }
+
+    .added-overlay.visible {
+      opacity: 1;
+    }
+
+    .added-overlay .check-icon {
+      font-size: 4rem;
+      color: var(--star-white);
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+    }
+
+    .added-overlay .added-text {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--star-white);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* "TAP TO ADD" Hint */
+    .tap-hint {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-heading);
+      font-size: 0.7rem;
+      color: var(--cosmic-cyan);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 5;
+      background: rgba(0, 217, 255, 0.1);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      border: 1px solid rgba(0, 217, 255, 0.3);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .menu-card:hover .tap-hint {
+      opacity: 1;
+    }
+
+    /* Section Divider */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 2rem 0;
+    }
+
+    .section-divider .star-line {
+      flex: 1;
+      max-width: 150px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cosmic-purple-light), transparent);
+    }
+
+    .section-divider .star-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--galaxy-gold);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--galaxy-gold-glow);
+      animation: twinkle 2s infinite;
+    }
+ /* ═══════════════════════════════════════════════════
+       PART 2: Continuing inside <style> tag from Part 1
+  ═══════════════════════════════════════════════════ */
+
+    /* ═══════════════════════════════════════════════════
+       🚀 FLOATING CART — COSMIC FOLDER
+    ═══════════════════════════════════════════════════ */
+    .floating-cart {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 500;
+      width: 64px;
+      height: 64px;
+      background: var(--grad-cosmic);
+      background-size: 200% 200%;
+      border: 2px solid var(--galaxy-gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      color: var(--star-white);
+      box-shadow: 0 0 25px var(--cosmic-purple-glow), 0 8px 25px rgba(0, 0, 0, 0.4);
+      transition: var(--transition-bounce);
+      cursor: pointer;
+      animation: cosmicPulse 3s infinite ease-in-out, gradientShift 5s ease infinite;
+    }
+
+    .floating-cart:hover {
+      transform: scale(1.15) rotate(10deg);
+      box-shadow: 0 0 40px var(--cosmic-purple-glow), 0 0 60px var(--nebula-pink-glow);
+    }
+
+    .floating-cart:active {
+      transform: scale(0.95);
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 26px;
+      height: 26px;
+      background: var(--nebula-pink);
+      color: var(--star-white);
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--star-white);
+      box-shadow: 0 0 12px var(--nebula-pink-glow);
+      transition: var(--transition-smooth);
+      z-index: 2;
+    }
+
+    .cart-badge.bounce {
+      animation: cartBounce 0.4s ease;
+    }
+
+    .cart-badge.hidden { display: none; }
+
+    /* ═══════════════════════════════════════════════════
+       🛸 MODAL BASE — COSMIC GLASS
+    ═══════════════════════════════════════════════════ */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 8, 22, 0.85);
+      backdrop-filter: blur(15px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal {
+      background: linear-gradient(145deg, var(--space-mid) 0%, var(--space-blue) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 20px;
+      max-width: 550px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.7),
+        0 0 40px var(--cosmic-purple-glow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      animation: fadeInUp 0.4s ease both;
+    }
+
+    /* Cosmic border glow */
+    .modal::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--grad-cosmic);
+      background-size: 200% auto;
+      border-radius: 20px 20px 0 0;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    .modal::-webkit-scrollbar { width: 6px; }
+    .modal::-webkit-scrollbar-track { background: var(--space-blue); }
+    .modal::-webkit-scrollbar-thumb {
+      background: var(--cosmic-purple);
+      border-radius: 3px;
+    }
+
+    /* ═══ MODAL HEADER ═══ */
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.3rem 1.5rem;
+      border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+      position: sticky;
+      top: 0;
+      background: rgba(21, 26, 58, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .modal-header-title {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      background: var(--grad-cosmic);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .modal-header-title .header-icon {
+      -webkit-text-fill-color: initial;
+      font-size: 1.4rem;
+    }
+
+    .modal-close-btn {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 46, 99, 0.1);
+      border: 1px solid var(--nebula-pink);
+      color: var(--nebula-pink);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-smooth);
+      border-radius: 50%;
+    }
+
+    .modal-close-btn:hover {
+      background: var(--nebula-pink);
+      color: var(--star-white);
+      transform: rotate(90deg);
+      box-shadow: 0 0 15px var(--nebula-pink-glow);
+    }
+
+    .modal-body { padding: 1.5rem; }
+
+    /* ═══════════════════════════════════════════════════
+       🛒 CART MODAL
+    ═══════════════════════════════════════════════════ */
+    .cart-empty {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .cart-empty .empty-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+      filter: drop-shadow(0 0 15px var(--cosmic-purple-glow));
+    }
+
+    .cart-empty .empty-text {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      background: var(--grad-cosmic);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+    }
+
+    .cart-empty .empty-sub {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--star-faint);
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    /* Cart Item */
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      margin-bottom: 0.7rem;
+      background: rgba(168, 85, 247, 0.05);
+      border: 1px solid rgba(168, 85, 247, 0.15);
+      border-radius: 12px;
+      transition: var(--transition-smooth);
+    }
+
+    .cart-item:hover {
+      background: rgba(168, 85, 247, 0.1);
+      border-color: var(--cosmic-purple-light);
+      transform: translateX(3px);
+    }
+
+    .cart-item-img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--galaxy-gold);
+      flex-shrink: 0;
+      box-shadow: 0 0 10px var(--galaxy-gold-glow);
+    }
+
+    .cart-item-info { flex: 1; min-width: 0; }
+
+    .cart-item-name {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--star-white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cart-item-price {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      color: var(--galaxy-gold);
+      margin-top: 0.2rem;
+      text-shadow: 0 0 5px var(--galaxy-gold-glow);
+    }
+
+    /* Qty Controls */
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .qty-btn {
+      width: 32px;
+      height: 32px;
+      background: var(--grad-cosmic);
+      background-size: 200% auto;
+      color: var(--star-white);
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-smooth);
+      font-family: var(--font-display);
+      font-weight: 700;
+    }
+
+    .qty-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 12px var(--cosmic-purple-glow);
+      animation: gradientShift 1s ease infinite;
+    }
+
+    .qty-value {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--star-white);
+      min-width: 28px;
+      text-align: center;
+    }
+
+    /* Remove Btn */
+    .cart-item-remove {
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 46, 99, 0.1);
+      color: var(--nebula-pink);
+      border: 1px solid rgba(255, 46, 99, 0.3);
+      border-radius: 8px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-smooth);
+      flex-shrink: 0;
+    }
+
+    .cart-item-remove:hover {
+      background: var(--nebula-pink);
+      color: var(--star-white);
+      box-shadow: 0 0 12px var(--nebula-pink-glow);
+    }
+
+    /* Cart Footer */
+    .cart-footer {
+      border-top: 1px solid rgba(168, 85, 247, 0.2);
+      padding-top: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding: 1rem 1.2rem;
+      background: rgba(168, 85, 247, 0.08);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-radius: 12px;
+    }
+
+    .cart-total-label {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      color: var(--star-dim);
+      letter-spacing: 1px;
+    }
+
+    .cart-total-value {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--galaxy-gold);
+      text-shadow: 0 0 15px var(--galaxy-gold-glow);
+      letter-spacing: 1px;
+    }
+
+    /* ═══ COSMIC BUTTONS ═══ */
+    .btn-cosmic {
+      width: 100%;
+      padding: 0.9rem 1.5rem;
+      background: var(--grad-cosmic);
+      background-size: 200% auto;
+      color: var(--star-white);
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 12px;
+      transition: var(--transition-smooth);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      box-shadow: 0 4px 20px var(--cosmic-purple-glow);
+      animation: gradientShift 4s ease infinite;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-cosmic::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .btn-cosmic:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px var(--cosmic-purple-glow), 0 0 40px var(--nebula-pink-glow);
+    }
+
+    .btn-cosmic:hover::before { left: 100%; }
+    .btn-cosmic:active { transform: translateY(0); }
+
+    .btn-cosmic.gold {
+      background: linear-gradient(135deg, var(--galaxy-gold) 0%, var(--galaxy-gold-light) 50%, var(--nebula-pink) 100%);
+      color: var(--space-deep);
+      box-shadow: 0 4px 20px var(--galaxy-gold-glow);
+    }
+
+    .btn-clear-cart {
+      width: 100%;
+      padding: 0.6rem;
+      background: transparent;
+      color: var(--nebula-pink);
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      border: 1px solid rgba(255, 46, 99, 0.3);
+      border-radius: 8px;
+      margin-top: 0.8rem;
+      transition: var(--transition-smooth);
+      text-transform: uppercase;
+    }
+
+    .btn-clear-cart:hover {
+      background: var(--nebula-pink);
+      color: var(--star-white);
+      border-color: var(--nebula-pink);
+      box-shadow: 0 0 15px var(--nebula-pink-glow);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🪐 ORDER TYPE — COSMIC SELECTION
+    ═══════════════════════════════════════════════════ */
+    .order-type-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .order-type-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      background: rgba(168, 85, 247, 0.05);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-radius: 16px;
+      cursor: pointer;
+      transition: var(--transition-bounce);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .order-type-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 4px;
+      background: var(--grad-cosmic);
+      background-size: 200% auto;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      animation: gradientShift 3s ease infinite;
+    }
+
+    .order-type-card:hover {
+      border-color: var(--cosmic-purple-light);
+      background: rgba(168, 85, 247, 0.12);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px var(--cosmic-purple-glow);
+    }
+
+    .order-type-card:hover::before { opacity: 1; }
+
+    .order-type-card .type-icon {
+      font-size: 2.8rem;
+      margin-bottom: 0.8rem;
+      filter: drop-shadow(0 0 15px var(--cosmic-purple-glow));
+    }
+
+    .order-type-card .type-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      background: var(--grad-cosmic);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .order-type-card .type-subtitle {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--star-faint);
+      font-style: italic;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       📝 COSMIC FORMS
+    ═══════════════════════════════════════════════════ */
+    .form-group { margin-bottom: 1.2rem; }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      color: var(--cosmic-purple-light);
+      margin-bottom: 0.4rem;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+
+    .form-label .required {
+      color: var(--nebula-pink);
+      margin-left: 0.2rem;
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--star-white);
+      background: rgba(168, 85, 247, 0.05);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-radius: 10px;
+      transition: var(--transition-smooth);
+      outline: none;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      border-color: var(--cosmic-purple-light);
+      box-shadow: 0 0 15px var(--cosmic-purple-glow);
+      background: rgba(168, 85, 247, 0.1);
+    }
+
+    .form-input.error,
+    .form-textarea.error {
+      border-color: var(--nebula-pink);
+      box-shadow: 0 0 12px var(--nebula-pink-glow);
+    }
+
+    .form-error-text {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--nebula-pink);
+      margin-top: 0.3rem;
+      display: none;
+      font-style: italic;
+    }
+
+    .form-error-text.visible { display: block; }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23a855f7' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--star-faint);
+      font-style: italic;
+    }
+
+    .form-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      color: var(--nebula-pink);
+      background: transparent;
+      border: none;
+      margin-bottom: 1rem;
+      transition: var(--transition-smooth);
+      letter-spacing: 1px;
+    }
+
+    .form-back-btn:hover {
+      color: var(--cosmic-purple-light);
+      transform: translateX(-3px);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       📍 MAP CHAMBER — COSMIC SCANNER
+    ═══════════════════════════════════════════════════ */
+    .map-container {
+      width: 100%;
+      height: 250px;
+      border: 2px solid var(--cosmic-purple-light);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 1rem 0;
+      position: relative;
+      box-shadow: 0 0 20px var(--cosmic-purple-glow);
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: hue-rotate(220deg) saturate(0.8) brightness(0.9);
+    }
+
+    .location-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      margin: 0.5rem 0;
+      border-radius: 10px;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+    }
+
+    .location-status.searching {
+      background: rgba(168, 85, 247, 0.1);
+      color: var(--cosmic-purple-light);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .location-status.found {
+      background: rgba(0, 217, 255, 0.1);
+      color: var(--cosmic-cyan);
+      border: 1px solid rgba(0, 217, 255, 0.3);
+    }
+
+    .location-status.error {
+      background: rgba(255, 46, 99, 0.1);
+      color: var(--nebula-pink);
+      border: 1px solid rgba(255, 46, 99, 0.3);
+    }
+
+    .location-status .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .location-status.searching .status-dot {
+      background: var(--cosmic-purple-light);
+      animation: twinkle 1s infinite;
+    }
+    .location-status.found .status-dot {
+      background: var(--cosmic-cyan);
+      box-shadow: 0 0 10px var(--cosmic-cyan-glow);
+    }
+    .location-status.error .status-dot { background: var(--nebula-pink); }
+
+    .btn-location {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: linear-gradient(135deg, var(--cosmic-cyan) 0%, var(--cosmic-purple) 100%);
+      color: var(--star-white);
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      border: none;
+      border-radius: 10px;
+      transition: var(--transition-smooth);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      box-shadow: 0 4px 15px var(--cosmic-cyan-glow);
+    }
+
+    .btn-location:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--cosmic-cyan-glow), 0 0 30px var(--cosmic-purple-glow);
+    }
+
+    .location-coords {
+      font-family: var(--font-tech);
+      font-size: 0.8rem;
+      color: var(--star-dim);
+      text-align: center;
+      margin-top: 0.5rem;
+      word-break: break-all;
+      letter-spacing: 1px;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       📡 CONTACT SECTION
+    ═══════════════════════════════════════════════════ */
+    .contact-section {
+      padding: var(--section-padding) 1rem;
+      background:
+        radial-gradient(ellipse at center, rgba(168, 85, 247, 0.08) 0%, transparent 60%),
+        linear-gradient(180deg, var(--space-deep) 0%, var(--space-blue) 50%, var(--space-deep) 100%);
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-header .cat-icon {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+      filter: drop-shadow(0 0 15px var(--cosmic-purple-glow));
+    }
+
+    .contact-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      background: var(--grad-cosmic);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      animation: gradientShift 5s ease infinite;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: linear-gradient(145deg, var(--space-mid) 0%, var(--space-light) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-radius: 16px;
+      transition: var(--transition-bounce);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--grad-cosmic);
+      background-size: 200% auto;
+      animation: gradientShift 3s ease infinite;
+    }
+
+    .contact-card:hover {
+      border-color: var(--cosmic-purple-light);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px var(--cosmic-purple-glow);
+    }
+
+    .contact-card-icon {
+      width: 55px;
+      height: 55px;
+      background: var(--grad-cosmic);
+      background-size: 200% auto;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      box-shadow: 0 0 15px var(--cosmic-purple-glow);
+      animation: gradientShift 4s ease infinite;
+    }
+
+    .contact-card-text { flex: 1; }
+
+    .contact-card-label {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      color: var(--galaxy-gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+
+    .contact-card-value {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--star-white);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🌠 FOOTER
+    ═══════════════════════════════════════════════════ */
+    .footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      background: var(--space-deep);
+      border-top: 1px solid rgba(168, 85, 247, 0.2);
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--grad-cosmic);
+      background-size: 200% auto;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    .footer-logo {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      filter: drop-shadow(0 0 15px var(--cosmic-purple-glow));
+    }
+
+    .footer-name {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      background: var(--grad-cosmic);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .footer-tagline {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--star-faint);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .footer-divider {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--galaxy-gold), transparent);
+      margin: 1rem auto;
+    }
+
+    .footer-copy {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      color: var(--star-faint);
+      letter-spacing: 1px;
+    }
+
+    .footer-copy a {
+      color: var(--cosmic-purple-light);
+      transition: var(--transition-smooth);
+    }
+
+    .footer-copy a:hover {
+      color: var(--galaxy-gold);
+      text-shadow: 0 0 8px var(--galaxy-gold-glow);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🔔 COSMIC TOAST
+    ═══════════════════════════════════════════════════ */
+    .toast-container {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      pointer-events: none;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1rem 1.5rem;
+      background: linear-gradient(135deg, var(--space-mid) 0%, var(--space-light) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 12px;
+      box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.5),
+        0 0 20px var(--cosmic-purple-glow);
+      animation: toastSlideIn 0.4s ease both;
+      pointer-events: auto;
+      max-width: 380px;
+      min-width: 280px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .toast.removing { animation: toastSlideOut 0.3s ease both; }
+
+    .toast-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 8px currentColor);
+    }
+
+    .toast-message {
+      font-family: var(--font-heading);
+      font-size: 0.88rem;
+      color: var(--star-white);
+      line-height: 1.3;
+    }
+
+    .toast.success { border-left: 4px solid var(--cosmic-cyan); }
+    .toast.error { border-left: 4px solid var(--nebula-pink); }
+
+    .toast-progress {
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 3px;
+      border-radius: 0 0 0 12px;
+      animation: toastProgress 2.5s linear both;
+    }
+
+    .toast.success .toast-progress { background: var(--cosmic-cyan); }
+    .toast.error .toast-progress { background: var(--nebula-pink); }
+
+    /* ═══════════════════════════════════════════════════
+       📱 RESPONSIVE DESIGN
+    ═══════════════════════════════════════════════════ */
+
+    /* Desktop Large (1400px+) */
+    @media (min-width: 1400px) {
+      .menu-grid { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+    }
+
+    /* Desktop (1200-1399px) */
+    @media (min-width: 1200px) and (max-width: 1399px) {
+      .menu-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* Tablet Landscape (992-1199px) */
+    @media (max-width: 1199px) {
+      .menu-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    }
+
+    /* Tablet Portrait (768-991px) */
+    @media (max-width: 991px) {
+      .menu-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .planet-decoration { width: 40px !important; height: 40px !important; }
+      .planet-2 { width: 55px !important; height: 55px !important; }
+    }
+
+    /* Mobile Large (577-767px) */
+    @media (max-width: 767px) {
+      html { scroll-padding-top: 65px; }
+
+      .hero { min-height: 85vh; padding: 1.5rem 1rem; }
+      .cosmic-logo { width: 80px; height: 80px; font-size: 2rem; }
+
+      .hero-details { flex-direction: column; gap: 0.6rem; align-items: center; }
+
+      .menu-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+      .menu-card { height: 420px; }
+
+      .triangle-top, .triangle-bottom { padding: 1.2rem; }
+      .triangle-top .top-image-wrapper,
+      .triangle-bottom .bot-image-wrapper { width: 75px; height: 75px; }
+
+      .triangle-top .top-name,
+      .triangle-bottom .bot-name { font-size: 0.95rem; }
+
+      .triangle-top .top-desc,
+      .triangle-bottom .bot-desc { font-size: 0.72rem; max-width: 55%; }
+
+      .floating-cart { width: 58px; height: 58px; font-size: 1.5rem; bottom: 1.5rem; right: 1.5rem; }
+
+      .order-type-grid { grid-template-columns: 1fr; }
+
+      .modal { max-width: 95vw; max-height: 92vh; border-radius: 16px; }
+      .modal-header { border-radius: 16px 16px 0 0; padding: 1rem; }
+      .modal-body { padding: 1rem; }
+
+      .toast-container { top: 1rem; right: 0.5rem; left: 0.5rem; }
+      .toast { max-width: 100%; min-width: auto; }
+
+      .planet-decoration { display: none; }
+    }
+
+    /* Mobile Small (480px) */
+    @media (max-width: 480px) {
+      .hero-title { font-size: 1.8rem; letter-spacing: 2px; }
+      .hero-title-urdu { font-size: 1.2rem; }
+
+      .menu-card { height: 400px; }
+      .menu-grid { gap: 1rem; }
+
+      .triangle-top, .triangle-bottom { padding: 1rem; }
+      .triangle-top .top-image-wrapper,
+      .triangle-bottom .bot-image-wrapper { width: 65px; height: 65px; }
+
+      .triangle-top .top-name,
+      .triangle-bottom .bot-name { font-size: 0.88rem; max-width: 55%; }
+
+      .triangle-top .top-price,
+      .triangle-bottom .bot-price { font-size: 0.95rem; }
+
+      .triangle-top .top-desc,
+      .triangle-bottom .bot-desc { font-size: 0.7rem; max-width: 50%; }
+
+      .category-nav-btn { padding: 0.5rem 0.9rem; font-size: 0.72rem; }
+      .category-title { font-size: 1.4rem; letter-spacing: 2px; }
+
+      .floating-cart { width: 54px; height: 54px; font-size: 1.3rem; bottom: 1rem; right: 1rem; }
+      .cart-badge { width: 22px; height: 22px; font-size: 0.65rem; }
+
+      .cart-item { flex-wrap: wrap; gap: 0.6rem; }
+      .cart-item-img { width: 45px; height: 45px; }
+
+      .plus-one-animation { font-size: 2.5rem; }
+      .added-overlay .check-icon { font-size: 3rem; }
+      .added-overlay .added-text { font-size: 1.2rem; letter-spacing: 3px; }
+    }
+
+    /* Very Small (360px) */
+    @media (max-width: 360px) {
+      .hero-title { font-size: 1.5rem; }
+      .menu-card { height: 380px; }
+      .triangle-top .top-name,
+      .triangle-bottom .bot-name { font-size: 0.82rem; }
+      .triangle-top .top-desc,
+      .triangle-bottom .bot-desc { font-size: 0.68rem; }
+    }
+
+    /* Print */
+    @media print {
+      .floating-cart, .category-nav, .scroll-indicator,
+      .toast-container, .contact-section, .planet-decoration,
+      .star-field, .plus-one-animation, .added-overlay,
+      .tap-hint { display: none !important; }
+      .hero { min-height: auto; padding: 2rem; }
+      body { background: #fff; color: #000; }
+      body::before { display: none; }
+      .menu-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+    }
+
+    /* Accessibility */
+    *:focus-visible {
+      outline: 2px solid var(--cosmic-purple-light);
+      outline-offset: 3px;
+    }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      margin: -1px; padding: 0; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    .hidden { display: none !important; }
+
+  </style>
+</head>
+  <body>
+
+  <!-- ═══════════════════════════════════════════════════
+       ⭐ STAR FIELD BACKGROUND
+  ═══════════════════════════════════════════════════ -->
+  <div class="star-field" id="starField" aria-hidden="true">
+    <!-- Stars generated by JavaScript -->
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       🔔 TOAST NOTIFICATION CONTAINER
+  ═══════════════════════════════════════════════════ -->
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-label="Notifications"></div>
+
+  <!-- ═══════════════════════════════════════════════════
+       🚀 HERO SECTION — GALAXY VIEW
+  ═══════════════════════════════════════════════════ -->
+  <section class="hero" id="hero" aria-label="Restaurant Hero Section">
+
+    <!-- Orbiting Planets -->
+    <div class="planet-decoration planet-1" aria-hidden="true"></div>
+    <div class="planet-decoration planet-2" aria-hidden="true"></div>
+    <div class="planet-decoration planet-3" aria-hidden="true"></div>
+    <div class="planet-decoration planet-4" aria-hidden="true"></div>
+
+    <!-- Cosmic Logo -->
+    <div class="cosmic-logo" aria-hidden="true">🌌</div>
+
+    <!-- Hero Title -->
+    <h1 class="hero-title">Royal Feast</h1>
+    <p class="hero-title-urdu">شاہی دستر خوان</p>
+
+    <!-- Tagline Badge -->
+    <div class="hero-tagline">
+      <span class="icon">✨</span>
+      <span>An Intergalactic Dining Experience</span>
+      <span class="icon">✨</span>
+    </div>
+
+    <!-- Hero Details -->
+    <div class="hero-details">
+      <div class="hero-detail-item">
+        <span class="icon">📞</span>
+        <span>+92 328 853 6793</span>
+      </div>
+      <div class="hero-detail-item">
+        <span class="icon">📍</span>
+        <span>Shop #1, Main Market, Lahore</span>
+      </div>
+      <div class="hero-detail-item">
+        <span class="icon">🌟</span>
+        <span>Open Daily: 12 PM - 12 AM</span>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" onclick="document.getElementById('menuStart').scrollIntoView({behavior:'smooth'})" role="button" tabindex="0" aria-label="Scroll to menu">
+      <span>Launch Menu</span>
+      <span class="arrow">🚀</span>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       🌠 CATEGORY NAVIGATION
+  ═══════════════════════════════════════════════════ -->
+  <nav class="category-nav" id="categoryNav" aria-label="Menu Category Navigation">
+    <div class="category-nav-inner" id="categoryNavInner">
+      <!-- Auto-generated by JavaScript -->
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════
+       🌟 MENU SECTIONS
+  ═══════════════════════════════════════════════════ -->
+  <main class="menu-container" id="menuStart" aria-label="Restaurant Menu">
+    <div id="menuSections">
+      <!-- Auto-generated by JavaScript -->
+    </div>
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════
+       📡 CONTACT SECTION
+  ═══════════════════════════════════════════════════ -->
+  <section class="contact-section" id="contact" aria-label="Contact Information">
+    <div class="contact-header">
+      <span class="cat-icon" aria-hidden="true">📡</span>
+      <h2 class="contact-title">Connect With Us</h2>
+      <div class="category-divider">
+        <span class="star-line"></span>
+        <span class="star-ornament">✨</span>
+        <span class="star-line"></span>
+      </div>
+    </div>
+
+    <div class="contact-grid">
+      <!-- WhatsApp -->
+      <a href="https://wa.me/923288536793" target="_blank" rel="noopener noreferrer" class="contact-card" aria-label="Contact via WhatsApp">
+        <div class="contact-card-icon">💬</div>
+        <div class="contact-card-text">
+          <div class="contact-card-label">Cosmic Message</div>
+          <div class="contact-card-value">WhatsApp: +92 328 853 6793</div>
+        </div>
+      </a>
+
+      <!-- Phone -->
+      <a href="tel:+923288536793" class="contact-card" aria-label="Call us">
+        <div class="contact-card-icon">📞</div>
+        <div class="contact-card-text">
+          <div class="contact-card-label">Direct Transmission</div>
+          <div class="contact-card-value">Call: +92 328 853 6793</div>
+        </div>
+      </a>
+
+      <!-- Address -->
+      <a href="https://maps.google.com/" target="_blank" rel="noopener noreferrer" class="contact-card" aria-label="Find our location">
+        <div class="contact-card-icon">🌍</div>
+        <div class="contact-card-text">
+          <div class="contact-card-label">Visit Our Galaxy</div>
+          <div class="contact-card-value">Shop #1, Main Market, Lahore</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       🌠 FOOTER
+  ═══════════════════════════════════════════════════ -->
+  <footer class="footer" aria-label="Footer">
+    <div class="footer-logo" aria-hidden="true">🌌</div>
+    <div class="footer-name">Royal Feast</div>
+    <div class="footer-tagline">"An Intergalactic Dining Experience"</div>
+    <div class="footer-divider"></div>
+    <div class="footer-copy">
+      &copy; <span id="footerYear"></span> Royal Feast — شاہی دستر خوان
+      <br>Crafted with 🌟 &amp; 💜 across the cosmos
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════
+       🚀 FLOATING CART — COSMIC FOLDER
+  ═══════════════════════════════════════════════════ -->
+  <button class="floating-cart" id="floatingCartBtn" onclick="openCartModal()" aria-label="Open Cart" title="View Your Cosmic Cart">
+    🌌
+    <span class="cart-badge hidden" id="cartBadge">0</span>
+  </button>
+
+  <!-- ═══════════════════════════════════════════════════
+       🛒 MODAL: CART
+  ═══════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="cartModal" role="dialog" aria-modal="true" aria-label="Your Cart">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-header-title">
+          <span class="header-icon">📂</span>
+          Your Cosmic Cart
+        </h2>
+        <button class="modal-close-btn" onclick="closeAllModals()" aria-label="Close Cart">&times;</button>
+      </div>
+      <div class="modal-body" id="cartModalBody">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       🪐 MODAL: ORDER TYPE
+  ═══════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="orderTypeModal" role="dialog" aria-modal="true" aria-label="Choose Order Type">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-header-title">
+          <span class="header-icon">🌌</span>
+          Choose Your Mission
+        </h2>
+        <button class="modal-close-btn" onclick="closeAllModals()" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-family: var(--font-body); font-style: italic; color: var(--star-dim); text-align: center; margin-bottom: 1.5rem;">
+          How shall we deliver your cosmic feast?
+        </p>
+        <div class="order-type-grid">
+          <!-- Dine-In -->
+          <div class="order-type-card" onclick="selectOrderType('dinein')" role="button" tabindex="0" aria-label="Dine In">
+            <div class="type-icon">🛸</div>
+            <div class="type-title">Dine-In</div>
+            <div class="type-subtitle">Dock at our space station</div>
+          </div>
+          <!-- Delivery -->
+          <div class="order-type-card" onclick="selectOrderType('delivery')" role="button" tabindex="0" aria-label="Delivery">
+            <div class="type-icon">🚀</div>
+            <div class="type-title">Delivery</div>
+            <div class="type-subtitle">Launch to your location</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       🛸 MODAL: DINE-IN FORM
+  ═══════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="dineinModal" role="dialog" aria-modal="true" aria-label="Dine In Details">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-header-title">
+          <span class="header-icon">🛸</span>
+          Dock at Space Station
+        </h2>
+        <button class="modal-close-btn" onclick="closeAllModals()" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <button class="form-back-btn" onclick="goBackToOrderType()" aria-label="Go back">
+          ← Change Mission
+        </button>
+
+        <form id="dineinForm" onsubmit="return false;">
+          <div class="form-group">
+            <label class="form-label" for="dineinName">
+              Your Name <span class="required">*</span>
+            </label>
+            <input type="text" class="form-input" id="dineinName" placeholder="Enter your cosmic identity..." required autocomplete="name" aria-required="true">
+            <div class="form-error-text" id="dineinNameError">⚠ Please enter your name!</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="dineinTable">
+              Station Number <span class="required">*</span>
+            </label>
+            <select class="form-select" id="dineinTable" required aria-required="true">
+              <option value="">— Select Your Station —</option>
+              <option value="1">Station 01 🪐</option>
+              <option value="2">Station 02 🪐</option>
+              <option value="3">Station 03 🪐</option>
+              <option value="4">Station 04 🪐</option>
+              <option value="5">Station 05 🪐</option>
+              <option value="6">Station 06 🪐</option>
+              <option value="7">Station 07 🪐</option>
+              <option value="8">Station 08 🪐</option>
+              <option value="9">Station 09 🪐</option>
+              <option value="10">Station 10 🪐</option>
+              <option value="11">Station 11 🪐</option>
+              <option value="12">Station 12 🪐</option>
+            </select>
+            <div class="form-error-text" id="dineinTableError">⚠ Please select a station!</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="dineinNotes">
+              Special Instructions
+            </label>
+            <textarea class="form-textarea" id="dineinNotes" placeholder="Any special requests, allergies, or preferences..." rows="3"></textarea>
+          </div>
+
+          <button type="button" class="btn-cosmic gold" onclick="submitDineInOrder()" aria-label="Send order via WhatsApp">
+            🚀 Transmit Order via WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       🚀 MODAL: DELIVERY FORM
+  ═══════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="deliveryModal" role="dialog" aria-modal="true" aria-label="Delivery Details">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-header-title">
+          <span class="header-icon">🚀</span>
+          Launch Delivery Mission
+        </h2>
+        <button class="modal-close-btn" onclick="closeAllModals()" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <button class="form-back-btn" onclick="goBackToOrderType()" aria-label="Go back">
+          ← Change Mission
+        </button>
+
+        <form id="deliveryForm" onsubmit="return false;">
+          <div class="form-group">
+            <label class="form-label" for="deliveryName">
+              Your Name <span class="required">*</span>
+            </label>
+            <input type="text" class="form-input" id="deliveryName" placeholder="Enter your cosmic identity..." required autocomplete="name" aria-required="true">
+            <div class="form-error-text" id="deliveryNameError">⚠ Please enter your name!</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="deliveryPhone">
+              Contact Frequency (Phone) <span class="required">*</span>
+            </label>
+            <input type="tel" class="form-input" id="deliveryPhone" placeholder="e.g. 0300 1234567" required autocomplete="tel" aria-required="true">
+            <div class="form-error-text" id="deliveryPhoneError">⚠ Please enter your phone number!</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="deliveryAddress">
+              Landing Coordinates (Address) <span class="required">*</span>
+            </label>
+            <textarea class="form-textarea" id="deliveryAddress" placeholder="Full delivery address..." rows="2" required aria-required="true"></textarea>
+            <div class="form-error-text" id="deliveryAddressError">⚠ Please enter your address!</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              📍 GPS Auto-Locator
+            </label>
+            <button type="button" class="btn-location" onclick="getCurrentLocation()" aria-label="Get current location">
+              🛰️ Scan My Location
+            </button>
+            <div class="location-status hidden" id="locationStatus">
+              <span class="status-dot"></span>
+              <span id="locationStatusText">Scanning the cosmos...</span>
+            </div>
+            <div class="map-container hidden" id="mapContainer">
+              <iframe id="mapFrame" title="Your Location Map" loading="lazy"></iframe>
+            </div>
+            <div class="location-coords hidden" id="locationCoords"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="deliveryNotes">
+              Special Instructions
+            </label>
+            <textarea class="form-textarea" id="deliveryNotes" placeholder="Landmarks, allergies, special requests..." rows="3"></textarea>
+          </div>
+
+          <button type="button" class="btn-cosmic gold" onclick="submitDeliveryOrder()" aria-label="Send order via WhatsApp">
+            🚀 Launch Order via WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       🌌 JAVASCRIPT — MENU DATA + APP LOGIC
+  ═══════════════════════════════════════════════════ -->
+  <script>
+    /* ═══════════════════════════════════════════════════
+       🌟 RESTAURANT CONFIG
+    ═══════════════════════════════════════════════════ */
+    const RESTAURANT = {
+      name: "Royal Feast",
+      nameUrdu: "شاہی دستر خوان",
+      phone: "+92 328 853 6793",
+      whatsapp: "923288536793",
+      address: "Shop #1, Main Market, Lahore",
+      mapsLink: "https://maps.google.com/",
+      currency: "Rs.",
+      tagline: "An Intergalactic Dining Experience"
+    };
+
+    /* ═══════════════════════════════════════════════════
+       🪐 CATEGORY ICONS — COSMIC STYLE
+    ═══════════════════════════════════════════════════ */
+    const categoryIcons = {
+      "Soup": "🍲", "Starters": "🍗", "SeaFood": "🦐",
+      "Fries": "🍟", "Poultry": "🍖", "Wrap": "🌯",
+      "Pasta": "🍝", "Tea": "🫖", "Sandwiches": "🥪",
+      "Ice Cream Shakes": "🍦", "Signature Specials": "⭐",
+      "Panini": "🥖", "Kehwa": "☕", "Ice Tea": "🧊",
+      "Desserts": "🍰", "House Special": "👑", "BBQ": "🔥",
+      "Tandoor": "🫓", "Mocktails": "🍹", "Special Drinks": "☕",
+      "Margaritas": "🍸", "Beverages": "🥤",
+      "Classic Pizzas": "🍕", "Premium Pizzas": "🍕"
+    };
+
+    const specialCategories = ["House Special", "BBQ", "Signature Specials"];
+
+    /* ═══════════════════════════════════════════════════
+       🍖 MENU DATA — COMPLETE COSMIC CATALOG
+    ═══════════════════════════════════════════════════ */
+    const menuData = [
+      {
+        name: "Soup",
+        items: [
+          { name: "Chicken Corn Soup", price: 350, desc: "A classic creamy Chinese-style soup loaded with tender shredded chicken and sweet corn kernels. Slow-simmered in a rich chicken broth and finished with a silky egg drop swirl.", img: "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80" },
+          { name: "Hot & Sour Soup", price: 380, desc: "A bold, tangy, and spicy Asian-inspired soup with shredded chicken, mushrooms, and fresh vegetables. Balanced with vinegar, soy sauce, and chili oil for that authentic flavor punch.", img: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=400&q=80" },
+          { name: "Mushroom Soup", price: 400, desc: "A luxuriously rich and velvety cream of mushroom soup made with hand-picked button and portobello mushrooms. Finished with a swirl of fresh cream and a hint of garlic.", img: "https://images.unsplash.com/photo-1605709303005-4d4d2c5b1f0e?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Starters",
+        items: [
+          { name: "Chicken Wings", price: 650, desc: "Juicy, crispy chicken wings double-fried to golden perfection and tossed in our signature spicy buffalo sauce. Served with creamy ranch dip and crunchy celery sticks.", img: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=400&q=80" },
+          { name: "Chicken Nuggets", price: 550, desc: "Tender bite-sized chicken pieces coated in a crispy seasoned breading and deep-fried golden brown. Served with a choice of three dipping sauces.", img: "https://images.unsplash.com/photo-1562967914-608f82629710?w=400&q=80" },
+          { name: "Spring Rolls", price: 450, desc: "Crispy, golden Asian-style spring rolls stuffed with fresh cabbage, carrots, bean sprouts, and vermicelli noodles. Pan-fried to a perfect crunch.", img: "https://images.unsplash.com/photo-1606503153255-59d8b8b8b89e?w=400&q=80" },
+          { name: "Chicken Lollipop", price: 700, desc: "Marinated chicken drummettes shaped like lollipops and deep-fried until crisp. Tossed in a spicy Indo-Chinese schezwan glaze. Served with mint chutney.", img: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f3e?w=400&q=80" }
+        ]
+      },
+      {
+        name: "SeaFood",
+        items: [
+          { name: "Grilled Fish", price: 1200, desc: "Fresh catch of the day marinated in lemon, garlic, and Mediterranean herbs, then grilled over an open flame. Served with steamed seasonal vegetables.", img: "https://images.unsplash.com/photo-1535399831218-d4e7a51b1f7e?w=400&q=80" },
+          { name: "Prawn Tempura", price: 1100, desc: "Plump jumbo prawns coated in a light, airy Japanese tempura batter and flash-fried to crispy perfection. Served with tangy soy ginger dipping sauce.", img: "https://images.unsplash.com/photo-1625944526647-c39d29c80aff?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Fries",
+        items: [
+          { name: "Classic Fries", price: 250, desc: "Hand-cut Idaho potatoes fried twice for the perfect golden crisp exterior and fluffy interior.", img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&q=80" },
+          { name: "Cheese Fries", price: 350, desc: "Our classic crispy fries smothered in a generous layer of melted cheddar and mozzarella cheese sauce.", img: "https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=400&q=80" },
+          { name: "Loaded Fries", price: 450, desc: "A mountain of golden fries loaded with shredded chicken, melted cheese, jalapeños, sour cream, and tangy salsa.", img: "https://images.unsplash.com/photo-1576107232684-1279f390859f?w=400&q=80" },
+          { name: "Peri Peri Fries", price: 320, desc: "Crispy fries generously coated in our house-blend peri peri seasoning with smoky African heat.", img: "https://images.unsplash.com/photo-1639024471283-03518883512d?w=400&q=80" },
+          { name: "Curly Fries", price: 320, desc: "Fun spiral-cut potato fries seasoned with our signature spice blend featuring paprika, garlic, and onion powder.", img: "https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400&q=80" },
+          { name: "Sweet Potato Fries", price: 380, desc: "Thick-cut sweet potato wedges baked until tender inside and crisp outside with sea salt and rosemary.", img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&q=80" },
+          { name: "Garlic Fries", price: 340, desc: "Golden fries tossed in melted garlic butter and showered with freshly chopped parsley and parmesan cheese.", img: "https://images.unsplash.com/photo-1518013431117-eb1465fa5752?w=400&q=80" },
+          { name: "BBQ Fries", price: 380, desc: "Crispy fries dusted with smoky barbecue seasoning and drizzled with tangy BBQ sauce.", img: "https://images.unsplash.com/photo-1639024471283-03518883512d?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Poultry",
+        items: [
+          { name: "Grilled Chicken", price: 950, desc: "A boneless chicken breast marinated overnight in herbs, olive oil, and lemon, then grilled to juicy perfection.", img: "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=400&q=80" },
+          { name: "Chicken Steak", price: 1100, desc: "Tender butterflied chicken breast pan-seared and topped with a creamy mushroom sauce and mashed potatoes.", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Wrap",
+        items: [
+          { name: "Chicken Wrap", price: 550, desc: "Tender grilled chicken strips, fresh lettuce, juicy tomatoes, and creamy mayo wrapped in a warm tortilla.", img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=400&q=80" },
+          { name: "Beef Wrap", price: 650, desc: "Spicy marinated beef strips combined with caramelized onions, bell peppers, and chipotle sauce in a soft flour tortilla.", img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=80" },
+          { name: "Veggie Wrap", price: 450, desc: "A fresh blend of grilled bell peppers, zucchini, mushrooms, and feta cheese wrapped with hummus.", img: "https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Pasta",
+        items: [
+          { name: "Alfredo Pasta", price: 750, desc: "Silky fettuccine pasta tossed in a rich, creamy Alfredo sauce with butter, cream, and parmesan cheese.", img: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400&q=80" },
+          { name: "Spaghetti Bolognese", price: 800, desc: "Classic al dente spaghetti smothered in a slow-cooked Italian meat sauce with beef mince and herbs.", img: "https://images.unsplash.com/photo-1551892374-ecf8754cf8b0?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Tea",
+        items: [
+          { name: "Karak Chai", price: 120, desc: "Strong, bold, and richly spiced desi tea brewed with full-fat milk, cardamom, and a hint of saffron.", img: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=400&q=80" },
+          { name: "Green Tea", price: 150, desc: "Premium loose-leaf green tea steeped to perfection with delicate grassy aroma, rich in antioxidants.", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80" },
+          { name: "Masala Chai", price: 180, desc: "Traditional Indian spiced tea brewed with cinnamon, cardamom, cloves, ginger, and black pepper in creamy milk.", img: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=400&q=80" },
+          { name: "Doodh Patti", price: 150, desc: "Pure milk tea made entirely with full-cream milk — absolutely no water added.", img: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=400&q=80" },
+          { name: "Lemon Tea", price: 140, desc: "Refreshing hot black tea infused with freshly squeezed lemon juice and a hint of honey.", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80" },
+          { name: "Ginger Tea", price: 160, desc: "Soothing tea brewed with fresh ginger root, black tea leaves, and milk.", img: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Sandwiches",
+        items: [
+          { name: "Club Sandwich", price: 550, desc: "A towering triple-decker sandwich layered with grilled chicken, crispy bacon, fresh lettuce, tomatoes, cheese, and mayo.", img: "https://images.unsplash.com/photo-1567234669003-dce7a7a88821?w=400&q=80" },
+          { name: "Grilled Cheese", price: 400, desc: "A buttery toasted sandwich oozing with three types of melted cheese — cheddar, mozzarella, and parmesan.", img: "https://images.unsplash.com/photo-1528736235302-52922df5c122?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Ice Cream Shakes",
+        items: [
+          { name: "Chocolate Shake", price: 350, desc: "Rich Belgian chocolate ice cream blended with cold milk and topped with whipped cream and chocolate sauce.", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400&q=80" },
+          { name: "Vanilla Shake", price: 320, desc: "Classic Madagascar vanilla bean ice cream blended into a smooth, creamy milkshake.", img: "https://images.unsplash.com/photo-1638176067000-9e8a1c1bd64f?w=400&q=80" },
+          { name: "Strawberry Shake", price: 350, desc: "Fresh strawberries blended with creamy vanilla ice cream and cold milk for that perfect pink delight.", img: "https://images.unsplash.com/photo-1553787499-6f9133860278?w=400&q=80" },
+          { name: "Oreo Shake", price: 400, desc: "Crushed Oreo cookies blended with vanilla ice cream and milk — ultimate cookies and cream shake.", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400&q=80" },
+          { name: "Mango Shake", price: 380, desc: "Fresh Pakistani Chaunsa mango pulp blended with creamy vanilla ice cream and cold milk.", img: "https://images.unsplash.com/photo-1546173159-315724a31696?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Signature Specials",
+        items: [
+          { name: "Signature Mocktail", price: 450, desc: "Chef's secret signature creation — a vibrant blend of tropical fruits, fresh berries, and mint.", img: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&q=80" },
+          { name: "Tropical Sunset", price: 420, desc: "Stunning layered drink combining orange, pineapple, and grenadine to create a beautiful sunset gradient.", img: "https://images.unsplash.com/photo-1546171753-97d7676e4602?w=400&q=80" },
+          { name: "Berry Blast", price: 450, desc: "An explosion of mixed berries — strawberries, blueberries, and raspberries — blended with cranberry juice.", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80" },
+          { name: "Mint Mojito", price: 380, desc: "A refreshing virgin mojito made with fresh mint leaves, zesty lime, sugar, and sparkling soda water.", img: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400&q=80" },
+          { name: "Passion Punch", price: 450, desc: "Exotic passion fruit blended with orange juice and a hint of ginger, topped with sparkling water.", img: "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=400&q=80" },
+          { name: "Watermelon Cooler", price: 400, desc: "Fresh watermelon juice blended with mint, lime, and a touch of sugar over crushed ice.", img: "https://images.unsplash.com/photo-1437418747212-8d9709afab22?w=400&q=80" },
+          { name: "Pina Colada", price: 480, desc: "A tropical virgin blend of fresh pineapple juice and creamy coconut milk, blended with ice.", img: "https://images.unsplash.com/photo-1546173159-315724a31696?w=400&q=80" },
+          { name: "Blue Lagoon", price: 450, desc: "A stunning electric blue mocktail made with blue curacao syrup, lemonade, and soda.", img: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400&q=80" },
+          { name: "Strawberry Daiquiri", price: 450, desc: "Fresh strawberries blended with lime juice, sugar, and crushed ice into a frosty pink delight.", img: "https://images.unsplash.com/photo-1553787499-6f9133860278?w=400&q=80" },
+          { name: "Mango Tango", price: 480, desc: "Juicy mango pulp combined with orange juice, lime, and a hint of chili powder.", img: "https://images.unsplash.com/photo-1546173159-315724a31696?w=400&q=80" },
+          { name: "Citrus Splash", price: 420, desc: "A zesty mix of fresh orange, lemon, lime, and grapefruit juices with a hint of honey.", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80" },
+          { name: "Kiwi Crush", price: 450, desc: "Fresh kiwi fruit blended with apple juice, lime, and mint leaves. Topped with crushed ice.", img: "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=400&q=80" },
+          { name: "Lychee Lush", price: 480, desc: "Premium lychee fruit blended with rose syrup, lime juice, and topped with soda water.", img: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&q=80" },
+          { name: "Pomegranate Fizz", price: 450, desc: "Fresh pomegranate juice mixed with lime, mint, and sparkling water. Garnished with seeds.", img: "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=400&q=80" },
+          { name: "Coconut Breeze", price: 480, desc: "Creamy coconut milk blended with pineapple juice, banana, and crushed ice.", img: "https://images.unsplash.com/photo-1546173159-315724a31696?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Panini",
+        items: [
+          { name: "Chicken Panini", price: 600, desc: "Grilled chicken, sundried tomatoes, mozzarella cheese, and basil pesto pressed between ciabatta bread.", img: "https://images.unsplash.com/photo-1539252554935-80c8cabf1a2b?w=400&q=80" },
+          { name: "Veggie Panini", price: 500, desc: "Grilled zucchini, eggplant, bell peppers, and fresh mozzarella with basil pesto on rustic ciabatta.", img: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Kehwa",
+        items: [
+          { name: "Kashmiri Kehwa", price: 220, desc: "Traditional Kashmiri green tea infused with saffron, cardamom, cinnamon, and crushed almonds.", img: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=400&q=80" },
+          { name: "Honey Kehwa", price: 250, desc: "Our signature Kashmiri kehwa sweetened with pure organic honey and garnished with crushed almonds.", img: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Ice Tea",
+        items: [
+          { name: "Lemon Ice Tea", price: 280, desc: "Freshly brewed black tea chilled over ice and infused with zesty lemon juice and a hint of honey.", img: "https://images.unsplash.com/photo-1556881286-fc6915169721?w=400&q=80" },
+          { name: "Peach Ice Tea", price: 320, desc: "Smooth iced tea infused with sweet ripe peach syrup and a splash of lemon.", img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80" },
+          { name: "Mango Ice Tea", price: 320, desc: "Tropical mango pulp blended into chilled black tea with a touch of lime.", img: "https://images.unsplash.com/photo-1546173159-315724a31696?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Desserts",
+        items: [
+          { name: "Chocolate Brownie", price: 380, desc: "Warm fudgy chocolate brownie served with a scoop of vanilla ice cream and hot chocolate sauce.", img: "https://images.unsplash.com/photo-1564355808539-22fda35bed7e?w=400&q=80" },
+          { name: "Cheesecake", price: 450, desc: "Classic New York-style cheesecake with a buttery graham cracker crust and cream cheese filling.", img: "https://images.unsplash.com/photo-1567171466295-4afa63d45416?w=400&q=80" },
+          { name: "Tiramisu", price: 500, desc: "Authentic Italian dessert layered with espresso-soaked ladyfingers, mascarpone cream, and cocoa powder.", img: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400&q=80" }
+        ]
+      },
+      {
+        name: "House Special",
+        items: [
+          { name: "Royal Platter", price: 1850, desc: "Our signature mixed grill platter — chicken tikka, seekh kabab, malai boti, beef bihari, and grilled wings.", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80" },
+          { name: "Chef's Special Steak", price: 1650, desc: "Premium grain-fed beef tenderloin cooked to your preference with mushroom sauce and mashed potatoes.", img: "https://images.unsplash.com/photo-1546964124-0cce460f38ef?w=400&q=80" },
+          { name: "Royal Biryani", price: 950, desc: "Aromatic basmati rice slow-cooked with tender chicken pieces, saffron, fried onions, and traditional spices.", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400&q=80" },
+          { name: "Mutton Karahi", price: 1850, desc: "Tender mutton pieces slow-cooked in a wok with fresh tomatoes, ginger, garlic, and green chilies.", img: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80" },
+          { name: "Chicken Handi", price: 1450, desc: "Boneless chicken cooked in a rich, creamy gravy with yogurt, cashews, and aromatic spices.", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80" },
+          { name: "Beef Nihari", price: 1250, desc: "Slow-cooked overnight beef stew infused with traditional spices, ginger, and aromatic herbs.", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=80" },
+          { name: "Special Pulao", price: 850, desc: "Fragrant basmati rice cooked with tender chicken in a flavorful broth of whole spices and ghee.", img: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&q=80" },
+          { name: "Tikka Boti", price: 1100, desc: "Boneless chicken or beef chunks marinated in yogurt and aromatic spices, then grilled over charcoal.", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=400&q=80" }
+        ]
+      },
+      {
+        name: "BBQ",
+        items: [
+          { name: "Chicken Tikka", price: 550, desc: "Bone-in chicken pieces marinated in yogurt, ginger, garlic, and red chili spices, charcoal grilled.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" },
+          { name: "Seekh Kabab", price: 500, desc: "Spiced minced beef hand-pressed onto skewers and grilled over charcoal until juicy.", img: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&q=80" },
+          { name: "Malai Boti", price: 650, desc: "Boneless chicken chunks marinated in cream, cheese, and mild spices, grilled to perfection.", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=400&q=80" },
+          { name: "Beef Bihari Kabab", price: 700, desc: "Thinly sliced marinated beef strips infused with traditional Bihari spices, slow-grilled.", img: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&q=80" },
+          { name: "Mutton Champ", price: 1450, desc: "Premium mutton chops marinated in raw papaya and aromatic spices for hours, then grilled.", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80" },
+          { name: "Chicken Reshmi", price: 650, desc: "Boneless chicken marinated in cream, cashew paste, and mild spices, soft buttery grilled.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" },
+          { name: "Fish Tikka", price: 850, desc: "Fresh fish fillets marinated in spices, yogurt, and lemon juice, then grilled until flaky.", img: "https://images.unsplash.com/photo-1535399831218-d4e7a51b1f7e?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Tandoor",
+        items: [
+          { name: "Tandoori Roti", price: 30, desc: "Traditional whole wheat flatbread baked fresh in a clay tandoor oven.", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80" },
+          { name: "Naan", price: 60, desc: "Soft, pillowy white flour naan bread baked to golden perfection in a hot tandoor.", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80" },
+          { name: "Garlic Naan", price: 100, desc: "Fluffy naan topped with fresh minced garlic, chopped coriander, and brushed with melted butter.", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80" },
+          { name: "Butter Naan", price: 90, desc: "Classic naan generously brushed with melted butter on both sides while still hot.", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80" },
+          { name: "Cheese Naan", price: 180, desc: "Soft naan stuffed generously with melted mozzarella cheese and baked in the tandoor.", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80" },
+          { name: "Roghni Naan", price: 80, desc: "Traditional Pakistani naan topped with sesame seeds and brushed with ghee.", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80" },
+          { name: "Kulcha", price: 90, desc: "Punjabi-style leavened flatbread baked in tandoor with a fluffy soft interior.", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80" },
+          { name: "Aloo Paratha", price: 150, desc: "Whole wheat flatbread stuffed with spiced mashed potatoes, onions, and herbs.", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80" },
+          { name: "Lachha Paratha", price: 120, desc: "Multi-layered flaky paratha made by folding dough multiple times with ghee.", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Mocktails",
+        items: [
+          { name: "Virgin Mojito", price: 350, desc: "Fresh mint leaves muddled with lime, sugar, and topped with sparkling soda water.", img: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400&q=80" },
+          { name: "Strawberry Mojito", price: 380, desc: "A fruity twist with fresh muddled strawberries, mint, lime, and sparkling water.", img: "https://images.unsplash.com/photo-1553787499-6f9133860278?w=400&q=80" },
+          { name: "Mango Mojito", price: 380, desc: "Tropical mango pulp blended with fresh mint, lime juice, and sparkling soda.", img: "https://images.unsplash.com/photo-1546173159-315724a31696?w=400&q=80" },
+          { name: "Blueberry Mojito", price: 400, desc: "Fresh blueberries muddled with mint leaves, lime juice, and topped with soda water.", img: "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=400&q=80" },
+          { name: "Lemonade Fresh", price: 280, desc: "Freshly squeezed lemon juice mixed with cold water, sugar, and a hint of mint.", img: "https://images.unsplash.com/photo-1556881286-fc6915169721?w=400&q=80" },
+          { name: "Cucumber Cooler", price: 320, desc: "Fresh cucumber blended with mint, lime, and a splash of sparkling water.", img: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&q=80" },
+          { name: "Berry Lemonade", price: 350, desc: "Classic fresh lemonade infused with mixed berry puree.", img: "https://images.unsplash.com/photo-1556881286-fc6915169721?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Special Drinks",
+        items: [
+          { name: "Cold Coffee", price: 380, desc: "Rich espresso blended with cold milk, sugar, and ice cream. Topped with whipped cream.", img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400&q=80" },
+          { name: "Iced Latte", price: 420, desc: "A double shot of espresso poured over cold milk and ice. Smooth and refreshing.", img: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&q=80" },
+          { name: "Iced Mocha", price: 450, desc: "Espresso, chocolate syrup, and cold milk combined over ice and topped with whipped cream.", img: "https://images.unsplash.com/photo-1572286258217-215cf8e09a96?w=400&q=80" },
+          { name: "Frappuccino", price: 480, desc: "Blended ice coffee with milk, sugar, and your choice of flavor — caramel, mocha, or vanilla.", img: "https://images.unsplash.com/photo-1572286258217-215cf8e09a96?w=400&q=80" },
+          { name: "Caramel Macchiato", price: 450, desc: "Vanilla-flavored espresso layered with steamed milk and topped with caramel drizzle.", img: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&q=80" },
+          { name: "Hot Chocolate", price: 380, desc: "Premium Belgian chocolate melted into steamed milk and topped with whipped cream.", img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400&q=80" },
+          { name: "Espresso", price: 250, desc: "A concentrated shot of pure coffee extracted under high pressure from premium beans.", img: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=400&q=80" },
+          { name: "Cappuccino", price: 350, desc: "Classic Italian coffee with equal parts espresso, steamed milk, and silky foam.", img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400&q=80" },
+          { name: "Latte", price: 380, desc: "Smooth espresso with steamed milk and a thin layer of microfoam.", img: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&q=80" },
+          { name: "Americano", price: 280, desc: "Strong espresso diluted with hot water for a milder, smoother taste.", img: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=400&q=80" },
+          { name: "Mocha", price: 420, desc: "Espresso combined with steamed milk and rich chocolate syrup, topped with whipped cream.", img: "https://images.unsplash.com/photo-1572286258217-215cf8e09a96?w=400&q=80" },
+          { name: "Affogato", price: 480, desc: "A classic Italian dessert-drink — premium vanilla ice cream 'drowned' in a hot shot of espresso.", img: "https://images.unsplash.com/photo-1572286258217-215cf8e09a96?w=400&q=80" },
+          { name: "Turkish Coffee", price: 450, desc: "Traditional Turkish coffee brewed in a cezve with finely ground beans and cardamom.", img: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=400&q=80" },
+          { name: "Irish Coffee", price: 500, desc: "Hot coffee sweetened with brown sugar and topped with a thick layer of fresh whipped cream.", img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400&q=80" },
+          { name: "Vienna Coffee", price: 480, desc: "Two shots of strong espresso topped with a generous swirl of whipped cream and cocoa.", img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Margaritas",
+        items: [
+          { name: "Classic Margarita", price: 480, desc: "Virgin version — fresh lime juice, simple syrup, and orange juice over crushed ice.", img: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&q=80" },
+          { name: "Strawberry Margarita", price: 520, desc: "Fresh strawberries blended with lime juice and simple syrup into a frosty pink slush.", img: "https://images.unsplash.com/photo-1553787499-6f9133860278?w=400&q=80" },
+          { name: "Mango Margarita", price: 520, desc: "Tropical mango pulp blended with fresh lime juice and crushed ice.", img: "https://images.unsplash.com/photo-1546173159-315724a31696?w=400&q=80" },
+          { name: "Blueberry Margarita", price: 540, desc: "Fresh blueberries muddled with lime juice and blended with crushed ice.", img: "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=400&q=80" },
+          { name: "Peach Margarita", price: 520, desc: "Sweet ripe peaches blended with lime juice, simple syrup, and ice.", img: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Beverages",
+        items: [
+          { name: "Coke", price: 120, desc: "Ice-cold Coca-Cola served in a chilled glass with ice and a slice of lemon.", img: "https://images.unsplash.com/photo-1554866585-cd94860890b7?w=400&q=80" },
+          { name: "Sprite", price: 120, desc: "Refreshing lemon-lime flavored carbonated drink served over ice.", img: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?w=400&q=80" },
+          { name: "Fanta", price: 120, desc: "Vibrant orange-flavored carbonated drink with that signature sweet tangy taste.", img: "https://images.unsplash.com/photo-1624552184280-9e9631bbeee9?w=400&q=80" },
+          { name: "Mineral Water", price: 80, desc: "Pure mineral water sourced from natural springs, served chilled in a 500ml bottle.", img: "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Classic Pizzas",
+        items: [
+          { name: "Margherita", price: 850, desc: "The classic Italian pizza topped with fresh tomato sauce, mozzarella cheese, and basil leaves.", img: "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?w=400&q=80" },
+          { name: "Pepperoni", price: 1100, desc: "Generous slices of spicy pepperoni layered over melted mozzarella cheese and rich tomato sauce.", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=400&q=80" },
+          { name: "Chicken Tikka Pizza", price: 1200, desc: "Desi-style pizza topped with spicy chicken tikka chunks, onions, bell peppers, and mozzarella.", img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80" },
+          { name: "BBQ Chicken", price: 1250, desc: "Smoky BBQ sauce base topped with grilled chicken, red onions, bell peppers, and a blend of cheeses.", img: "https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=400&q=80" },
+          { name: "Vegetarian", price: 950, desc: "Loaded with fresh bell peppers, onions, mushrooms, olives, tomatoes, and corn.", img: "https://images.unsplash.com/photo-1571066811602-716837d681de?w=400&q=80" }
+        ]
+      },
+      {
+        name: "Premium Pizzas",
+        items: [
+          { name: "Meat Lovers", price: 1650, desc: "The ultimate carnivore pizza loaded with pepperoni, sausage, grilled chicken, beef, and bacon.", img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=400&q=80" },
+          { name: "Supreme Pizza", price: 1750, desc: "Our premium loaded pizza featuring pepperoni, sausage, bell peppers, onions, mushrooms, and olives.", img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400&q=80" },
+          { name: "4 Cheese Pizza", price: 1550, desc: "Quattro Formaggi — mozzarella, cheddar, parmesan, and feta cheese on a creamy white sauce.", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&q=80" },
+          { name: "Special Pizza", price: 1850, desc: "Our signature creation with chicken tikka, malai boti, seekh kabab, peppers, and three cheeses.", img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80" }
+        ]
+      }
+    ];
+
+    /* ═══════════════════════════════════════════════════
+       🌌 CART STATE — GLOBAL VARIABLES
+    ═══════════════════════════════════════════════════ */
+    let cart = [];
+    let userLocation = { lat: null, lng: null };
+        /* ═══════════════════════════════════════════════════
+       🚀 INITIALIZATION — ON PAGE LOAD
+    ═══════════════════════════════════════════════════ */
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('footerYear').textContent = new Date().getFullYear();
+      loadCart();
+      generateStarField();
+      renderCategoryNav();
+      renderMenuSections();
+      setupScrollSpy();
+      setupKeyboardListeners();
+      console.log('🌌 Cosmic Dine Menu loaded successfully!');
+    });
+
+    /* ═══════════════════════════════════════════════════
+       ⭐ STAR FIELD GENERATOR
+    ═══════════════════════════════════════════════════ */
+    function generateStarField() {
+      var starField = document.getElementById('starField');
+      if (!starField) return;
+
+      var starCount = window.innerWidth > 768 ? 100 : 50;
+
+      for (var i = 0; i < starCount; i++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+
+        var size = Math.random() * 3 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = (Math.random() * 3) + 's';
+        star.style.animationDuration = (2 + Math.random() * 4) + 's';
+
+        // Random color tint
+        var colors = ['#eef0f2', '#a855f7', '#ff2e63', '#f0c040', '#00d9ff'];
+        star.style.background = colors[Math.floor(Math.random() * colors.length)];
+        star.style.boxShadow = '0 0 ' + (size * 2) + 'px currentColor';
+
+        starField.appendChild(star);
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       📑 RENDER CATEGORY NAVIGATION
+    ═══════════════════════════════════════════════════ */
+    function renderCategoryNav() {
+      var navInner = document.getElementById('categoryNavInner');
+      var navHTML = '';
+
+      menuData.forEach(function(category, index) {
+        var icon = categoryIcons[category.name] || '🍽️';
+        var catId = getCategoryId(category.name);
+        navHTML += '<button class="category-nav-btn' + (index === 0 ? ' active' : '') + '" ' +
+                   'onclick="scrollToCategory(\'' + catId + '\')" ' +
+                   'data-category="' + catId + '" ' +
+                   'aria-label="Go to ' + category.name + '">' +
+                   icon + ' ' + category.name +
+                   '</button>';
+      });
+
+      navInner.innerHTML = navHTML;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🎴 RENDER MENU SECTIONS — TRIANGULAR CARDS
+    ═══════════════════════════════════════════════════ */
+    function renderMenuSections() {
+      var container = document.getElementById('menuSections');
+      var html = '';
+
+      menuData.forEach(function(category, catIndex) {
+        var icon = categoryIcons[category.name] || '🍽️';
+        var catId = getCategoryId(category.name);
+        var isSpecial = specialCategories.includes(category.name);
+
+        html += '<section class="menu-section" id="' + catId + '" aria-label="' + category.name + ' Menu">';
+
+        // Category Header
+        html += '<div class="category-header">';
+        html += '<span class="cat-icon" aria-hidden="true">' + icon + '</span>';
+        html += '<h2 class="category-title">' + category.name + '</h2>';
+        html += '<div class="category-divider">';
+        html += '<span class="star-line"></span>';
+        html += '<span class="star-ornament">✨</span>';
+        html += '<span class="star-line"></span>';
+        html += '</div>';
+        html += '</div>';
+
+        // Menu Grid
+        html += '<div class="menu-grid">';
+
+        category.items.forEach(function(item, itemIndex) {
+          var cardClass = isSpecial ? 'menu-card special' : 'menu-card';
+          var cardId = 'card-' + catIndex + '-' + itemIndex;
+          var fallbackImg = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect fill=%22%237b2d8e%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2280%22%3E' + icon + '%3C/text%3E%3C/svg%3E';
+
+          // Whole card is clickable
+          html += '<div class="' + cardClass + '" id="' + cardId + '" ' +
+                  'onclick="addToCartFromCard(\'' + escapeStr(item.name) + '\', ' + item.price + ', \'' + escapeStr(item.img) + '\', \'' + escapeStr(category.name) + '\', \'' + cardId + '\')" ' +
+                  'role="button" tabindex="0" ' +
+                  'onkeydown="if(event.key===\'Enter\' || event.key===\' \'){event.preventDefault();this.click();}" ' +
+                  'aria-label="Add ' + item.name + ' to cart for ' + RESTAURANT.currency + ' ' + item.price + '">';
+
+          html += '<div class="card-inner">';
+
+          // TOP TRIANGLE (Upper Left)
+          html += '<div class="triangle-top">';
+          html += '<div class="top-image-wrapper">';
+          html += '<img src="' + item.img + '" alt="' + item.name + '" loading="lazy" onerror="this.src=\'' + fallbackImg + '\'">';
+          html += '</div>';
+          html += '<div class="top-name">' + item.name + '</div>';
+          html += '<div class="top-desc">' + truncateText(item.desc, 60) + '</div>';
+          html += '<div class="top-price">' + RESTAURANT.currency + ' ' + item.price + '</div>';
+          html += '</div>';
+
+          // DIAGONAL LINE
+          html += '<div class="diagonal-line"></div>';
+
+          // BOTTOM TRIANGLE (Lower Right)
+          html += '<div class="triangle-bottom">';
+          html += '<div class="bot-price">' + RESTAURANT.currency + ' ' + item.price + '</div>';
+          html += '<div class="bot-desc">' + truncateText(item.desc, 60) + '</div>';
+          html += '<div class="bot-name">' + item.name + '</div>';
+          html += '<div class="bot-image-wrapper">';
+          html += '<img src="' + item.img + '" alt="' + item.name + '" loading="lazy" onerror="this.src=\'' + fallbackImg + '\'">';
+          html += '</div>';
+          html += '</div>';
+
+          // "+1" Floating Animation Element
+          html += '<div class="plus-one-animation">+1</div>';
+
+          // "ADDED!" Overlay
+          html += '<div class="added-overlay">';
+          html += '<div class="check-icon">✓</div>';
+          html += '<div class="added-text">Added!</div>';
+          html += '</div>';
+
+          // Tap Hint
+          html += '<div class="tap-hint">✨ Tap to add ✨</div>';
+
+          html += '</div>'; // card-inner
+          html += '</div>'; // menu-card
+        });
+
+        html += '</div>'; // menu-grid
+
+        // Section Divider
+        if (catIndex < menuData.length - 1) {
+          html += '<div class="section-divider" aria-hidden="true">';
+          html += '<span class="star-line"></span>';
+          html += '<span class="star-dot"></span>';
+          html += '<span class="star-line"></span>';
+          html += '</div>';
+        }
+
+        html += '</section>';
+      });
+
+      container.innerHTML = html;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🔧 UTILITY FUNCTIONS
+    ═══════════════════════════════════════════════════ */
+    function getCategoryId(name) {
+      return 'cat-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
+
+    function escapeStr(str) {
+      return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    function truncateText(text, maxLength) {
+      if (text.length <= maxLength) return text;
+      return text.substring(0, maxLength).trim() + '...';
+    }
+
+    function formatPrice(price) {
+      return RESTAURANT.currency + ' ' + price.toLocaleString();
+    }
+
+    function getTimestamp() {
+      var now = new Date();
+      var day = now.getDate().toString().padStart(2, '0');
+      var month = (now.getMonth() + 1).toString().padStart(2, '0');
+      var year = now.getFullYear();
+      var hours = now.getHours();
+      var minutes = now.getMinutes().toString().padStart(2, '0');
+      var ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      return day + '/' + month + '/' + year + ' — ' + hours + ':' + minutes + ' ' + ampm;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       📑 SCROLL TO CATEGORY & SCROLL SPY
+    ═══════════════════════════════════════════════════ */
+    function scrollToCategory(catId) {
+      var element = document.getElementById(catId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setActiveNav(catId);
+      }
+    }
+
+    function setActiveNav(catId) {
+      var buttons = document.querySelectorAll('.category-nav-btn');
+      buttons.forEach(function(btn) {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-category') === catId) {
+          btn.classList.add('active');
+          // NOTE: btn.scrollIntoView() NAHI hai — page jump fix!
+        }
+      });
+    }
+
+    function setupScrollSpy() {
+      var sections = document.querySelectorAll('.menu-section');
+      var observerOptions = {
+        root: null,
+        rootMargin: '-100px 0px -60% 0px',
+        threshold: 0
+      };
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            setActiveNav(entry.target.id);
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(function(section) {
+        observer.observe(section);
+      });
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🎴 ADD TO CART FROM CARD CLICK
+       (Triggers: Pulse + "+1" floating + Flip with "ADDED!")
+    ═══════════════════════════════════════════════════ */
+    function addToCartFromCard(name, price, img, category, cardId) {
+      var card = document.getElementById(cardId);
+      if (!card) return;
+
+      // Prevent multiple rapid clicks
+      if (card.classList.contains('pulsing') || card.classList.contains('flipping')) {
+        return;
+      }
+
+      // ═══ EFFECT 1: PULSE GLOW ═══
+      card.classList.add('pulsing');
+      setTimeout(function() {
+        card.classList.remove('pulsing');
+      }, 600);
+
+      // ═══ EFFECT 2: "+1" FLOATING ANIMATION ═══
+      var plusOne = card.querySelector('.plus-one-animation');
+      if (plusOne) {
+        plusOne.classList.remove('active');
+        void plusOne.offsetWidth; // force reflow
+        plusOne.classList.add('active');
+        setTimeout(function() {
+          plusOne.classList.remove('active');
+        }, 1200);
+      }
+
+      // ═══ EFFECT 3: FLIP CARD + "ADDED!" OVERLAY ═══
+      var overlay = card.querySelector('.added-overlay');
+      if (overlay) {
+        card.classList.add('flipping');
+
+        // Show "ADDED!" overlay at flip mid-point
+        setTimeout(function() {
+          overlay.classList.add('visible');
+        }, 400);
+
+        // Hide overlay and remove flip class
+        setTimeout(function() {
+          overlay.classList.remove('visible');
+        }, 1400);
+
+        setTimeout(function() {
+          card.classList.remove('flipping');
+        }, 800);
+      }
+
+      // Add item to cart
+      addToCart(name, price, img, category);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🛒 CART MANAGEMENT
+    ═══════════════════════════════════════════════════ */
+    function loadCart() {
+      try {
+        var savedCart = localStorage.getItem('cosmicFeastCart');
+        if (savedCart) {
+          cart = JSON.parse(savedCart);
+        }
+      } catch (e) {
+        cart = [];
+      }
+      updateCartBadge();
+    }
+
+    function saveCart() {
+      try {
+        localStorage.setItem('cosmicFeastCart', JSON.stringify(cart));
+      } catch (e) {
+        console.warn('localStorage not available');
+      }
+      updateCartBadge();
+    }
+
+    function addToCart(name, price, img, category) {
+      var existingIndex = -1;
+      for (var i = 0; i < cart.length; i++) {
+        if (cart[i].name === name) {
+          existingIndex = i;
+          break;
+        }
+      }
+
+      if (existingIndex > -1) {
+        cart[existingIndex].qty += 1;
+      } else {
+        cart.push({
+          name: name,
+          price: price,
+          img: img,
+          category: category,
+          qty: 1
+        });
+      }
+
+      saveCart();
+      showToast('success', '⭐ "' + name + '" added to cosmic cart!');
+
+      var badge = document.getElementById('cartBadge');
+      badge.classList.remove('bounce');
+      void badge.offsetWidth;
+      badge.classList.add('bounce');
+    }
+
+    function removeFromCart(index) {
+      if (index >= 0 && index < cart.length) {
+        var itemName = cart[index].name;
+        cart.splice(index, 1);
+        saveCart();
+        renderCartModal();
+        showToast('error', '🗑️ "' + itemName + '" removed from cart!');
+      }
+    }
+
+    function updateQuantity(index, change) {
+      if (index >= 0 && index < cart.length) {
+        cart[index].qty += change;
+        if (cart[index].qty <= 0) {
+          removeFromCart(index);
+          return;
+        }
+        saveCart();
+        renderCartModal();
+      }
+    }
+
+    function clearCart() {
+      if (cart.length === 0) return;
+      cart = [];
+      saveCart();
+      renderCartModal();
+      showToast('error', '💫 Cart cleared! All items removed.');
+    }
+
+    function getCartTotal() {
+      var total = 0;
+      for (var i = 0; i < cart.length; i++) {
+        total += cart[i].price * cart[i].qty;
+      }
+      return total;
+    }
+
+    function getCartItemCount() {
+      var count = 0;
+      for (var i = 0; i < cart.length; i++) {
+        count += cart[i].qty;
+      }
+      return count;
+    }
+
+    function updateCartBadge() {
+      var badge = document.getElementById('cartBadge');
+      var count = getCartItemCount();
+      if (count > 0) {
+        badge.textContent = count > 99 ? '99+' : count;
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       📂 CART MODAL — RENDER COSMIC CART
+    ═══════════════════════════════════════════════════ */
+    function renderCartModal() {
+      var body = document.getElementById('cartModalBody');
+      var html = '';
+
+      if (cart.length === 0) {
+        html += '<div class="cart-empty">';
+        html += '<div class="empty-icon">🌌</div>';
+        html += '<div class="empty-text">Cart is Empty</div>';
+        html += '<div class="empty-sub">Explore the cosmic menu and tap any card to add items!</div>';
+        html += '</div>';
+        body.innerHTML = html;
+        return;
+      }
+
+      // Cart Items
+      cart.forEach(function(item, index) {
+        var subtotal = item.price * item.qty;
+        html += '<div class="cart-item">';
+
+        html += '<img class="cart-item-img" src="' + item.img + '" alt="' + item.name + '" loading="lazy" ' +
+                'onerror="this.src=\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 60 60%22%3E%3Crect fill=%22%237b2d8e%22 width=%2260%22 height=%2260%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2220%22%3E🌌%3C/text%3E%3C/svg%3E\'">';
+
+        html += '<div class="cart-item-info">';
+        html += '<div class="cart-item-name">' + item.name + '</div>';
+        html += '<div class="cart-item-price">' + formatPrice(subtotal) + '</div>';
+        html += '</div>';
+
+        html += '<div class="cart-item-qty">';
+        html += '<button class="qty-btn" onclick="updateQuantity(' + index + ', -1)" aria-label="Decrease">−</button>';
+        html += '<span class="qty-value">' + item.qty + '</span>';
+        html += '<button class="qty-btn" onclick="updateQuantity(' + index + ', 1)" aria-label="Increase">+</button>';
+        html += '</div>';
+
+        html += '<button class="cart-item-remove" onclick="removeFromCart(' + index + ')" aria-label="Remove ' + item.name + '" title="Remove">✕</button>';
+
+        html += '</div>';
+      });
+
+      // Footer
+      html += '<div class="cart-footer">';
+
+      html += '<div class="cart-total-row">';
+      html += '<span class="cart-total-label">✨ Cosmic Total</span>';
+      html += '<span class="cart-total-value">' + formatPrice(getCartTotal()) + '</span>';
+      html += '</div>';
+
+      html += '<button class="btn-cosmic" onclick="proceedToOrder()" aria-label="Proceed to order">';
+      html += '🚀 Proceed to Launch';
+      html += '</button>';
+
+      html += '<button class="btn-clear-cart" onclick="clearCart()" aria-label="Clear cart">';
+      html += '💫 Clear Cosmic Cart';
+      html += '</button>';
+
+      html += '</div>';
+
+      body.innerHTML = html;
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🛸 MODAL MANAGEMENT
+    ═══════════════════════════════════════════════════ */
+    function openCartModal() {
+      renderCartModal();
+      openModal('cartModal');
+    }
+
+    function openModal(modalId) {
+      closeAllModals();
+      var modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeAllModals() {
+      var modals = document.querySelectorAll('.modal-overlay');
+      modals.forEach(function(modal) {
+        modal.classList.remove('active');
+      });
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) {
+        closeAllModals();
+      }
+    });
+
+    /* ═══════════════════════════════════════════════════
+       🚀 ORDER FLOW
+    ═══════════════════════════════════════════════════ */
+    function proceedToOrder() {
+      if (cart.length === 0) {
+        showToast('error', '⚠ Cart is empty! Add items first.');
+        return;
+      }
+      openModal('orderTypeModal');
+    }
+
+    function selectOrderType(type) {
+      if (type === 'dinein') {
+        openModal('dineinModal');
+      } else if (type === 'delivery') {
+        openModal('deliveryModal');
+      }
+    }
+
+    function goBackToOrderType() {
+      openModal('orderTypeModal');
+    }
+
+    /* ═══════════════════════════════════════════════════
+       ✅ FORM VALIDATION
+    ═══════════════════════════════════════════════════ */
+    function validateField(inputId, errorId) {
+      var input = document.getElementById(inputId);
+      var error = document.getElementById(errorId);
+      var value = input.value.trim();
+
+      if (!value) {
+        input.classList.add('error');
+        if (error) error.classList.add('visible');
+        return false;
+      } else {
+        input.classList.remove('error');
+        if (error) error.classList.remove('visible');
+        return true;
+      }
+    }
+
+    document.addEventListener('input', function(e) {
+      if (e.target.classList.contains('form-input') || e.target.classList.contains('form-textarea') || e.target.classList.contains('form-select')) {
+        e.target.classList.remove('error');
+        var errorEl = e.target.parentElement.querySelector('.form-error-text');
+        if (errorEl) errorEl.classList.remove('visible');
+      }
+    });
+
+    /* ═══════════════════════════════════════════════════
+       🛸 SUBMIT DINE-IN ORDER
+    ═══════════════════════════════════════════════════ */
+    function submitDineInOrder() {
+      var nameValid = validateField('dineinName', 'dineinNameError');
+      var tableValid = validateField('dineinTable', 'dineinTableError');
+
+      if (!nameValid || !tableValid) {
+        showToast('error', '⚠ Please fill all required fields!');
+        return;
+      }
+
+      var customerName = document.getElementById('dineinName').value.trim();
+      var tableNumber = document.getElementById('dineinTable').value;
+      var notes = document.getElementById('dineinNotes').value.trim();
+
+      var message = buildWhatsAppMessage('dinein', {
+        name: customerName,
+        table: tableNumber,
+        notes: notes
+      });
+
+      sendWhatsApp(message);
+      document.getElementById('dineinForm').reset();
+      closeAllModals();
+      showToast('success', '🌟 Order transmitted! Your feast awaits!');
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🚀 SUBMIT DELIVERY ORDER
+    ═══════════════════════════════════════════════════ */
+    function submitDeliveryOrder() {
+      var nameValid = validateField('deliveryName', 'deliveryNameError');
+      var phoneValid = validateField('deliveryPhone', 'deliveryPhoneError');
+      var addressValid = validateField('deliveryAddress', 'deliveryAddressError');
+
+      if (!nameValid || !phoneValid || !addressValid) {
+        showToast('error', '⚠ Please fill all required fields!');
+        return;
+      }
+
+      var customerName = document.getElementById('deliveryName').value.trim();
+      var customerPhone = document.getElementById('deliveryPhone').value.trim();
+      var customerAddress = document.getElementById('deliveryAddress').value.trim();
+      var notes = document.getElementById('deliveryNotes').value.trim();
+
+      var message = buildWhatsAppMessage('delivery', {
+        name: customerName,
+        phone: customerPhone,
+        address: customerAddress,
+        notes: notes,
+        lat: userLocation.lat,
+        lng: userLocation.lng
+      });
+
+      sendWhatsApp(message);
+      document.getElementById('deliveryForm').reset();
+      resetLocationUI();
+      closeAllModals();
+      showToast('success', '🚀 Order launched! Cosmic feast is on the way!');
+    }
+
+    /* ═══════════════════════════════════════════════════
+       📱 BUILD WHATSAPP MESSAGE — COSMIC FORMAT
+    ═══════════════════════════════════════════════════ */
+    function buildWhatsAppMessage(type, details) {
+      var line = '━━━━━━━━━━━━━━━━━━━━━━';
+      var msg = '';
+
+      // Header
+      msg += '🌌 *ROYAL FEAST* 🌌\n';
+      msg += '✨ _An Intergalactic Dining Experience_\n';
+      msg += '🪐 _شاہی دستر خوان_\n';
+      msg += line + '\n';
+      msg += '🚀 *COSMIC ORDER*\n';
+      msg += line + '\n\n';
+
+      // Order Type
+      if (type === 'dinein') {
+        msg += '🛸 *Mission Type:* DINE-IN\n';
+        msg += '👤 *Cosmic Name:* ' + details.name + '\n';
+        msg += '🪐 *Space Station:* Station #' + details.table + '\n';
+      } else {
+        msg += '🚀 *Mission Type:* DELIVERY\n';
+        msg += '👤 *Cosmic Name:* ' + details.name + '\n';
+        msg += '📞 *Contact Frequency:* ' + details.phone + '\n';
+        msg += '🏠 *Landing Coordinates:* ' + details.address + '\n';
+
+        if (details.lat && details.lng) {
+          msg += '📍 *GPS Map:* https://www.google.com/maps?q=' + details.lat + ',' + details.lng + '\n';
+        }
+      }
+
+      msg += '\n' + line + '\n';
+      msg += '🍽️ *ORDER MANIFEST:*\n';
+      msg += line + '\n\n';
+
+      // Items
+      var itemNumber = 1;
+      cart.forEach(function(item) {
+        var subtotal = item.price * item.qty;
+        msg += itemNumber + '. *' + item.name + '*\n';
+        msg += '   ⭐ Qty: ' + item.qty + ' × ' + formatPrice(item.price) + ' = *' + formatPrice(subtotal) + '*\n\n';
+        itemNumber++;
+      });
+
+      msg += line + '\n';
+      msg += '💰 *COSMIC TOTAL: ' + formatPrice(getCartTotal()) + '*\n';
+      msg += line + '\n\n';
+
+      if (details.notes) {
+        msg += '📝 *Special Instructions:*\n';
+        msg += details.notes + '\n\n';
+      }
+
+      msg += '🕐 *Ordered at:* ' + getTimestamp() + '\n\n';
+
+      msg += '━━━━━━━━━━━━━━━━━━━━━\n';
+      msg += '_Transmitted from Royal Feast — Cosmic Dine_ 🌌\n';
+      msg += '_An Intergalactic Dining Experience_ ✨';
+
+      return msg;
+    }
+
+    function sendWhatsApp(message) {
+      var encoded = encodeURIComponent(message);
+      var url = 'https://wa.me/' + RESTAURANT.whatsapp + '?text=' + encoded;
+      window.open(url, '_blank');
+      cart = [];
+      saveCart();
+    }
+
+    /* ═══════════════════════════════════════════════════
+       📍 MAP & GEOLOCATION — COSMIC SCANNER
+    ═══════════════════════════════════════════════════ */
+    function getCurrentLocation() {
+      var statusDiv = document.getElementById('locationStatus');
+      var statusText = document.getElementById('locationStatusText');
+      var mapContainer = document.getElementById('mapContainer');
+      var coordsDiv = document.getElementById('locationCoords');
+
+      statusDiv.classList.remove('hidden', 'found', 'error');
+      statusDiv.classList.add('searching');
+      statusText.textContent = '🛰️ Scanning the cosmos for your location...';
+
+      if (!navigator.geolocation) {
+        statusDiv.classList.remove('searching');
+        statusDiv.classList.add('error');
+        statusText.textContent = '❌ GPS scanner not available!';
+        showToast('error', '❌ Geolocation not supported on this device!');
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        function(position) {
+          var lat = position.coords.latitude;
+          var lng = position.coords.longitude;
+          userLocation.lat = lat;
+          userLocation.lng = lng;
+
+          statusDiv.classList.remove('searching');
+          statusDiv.classList.add('found');
+          statusText.textContent = '✅ Location locked! Cosmic signal acquired!';
+
+          var mapFrame = document.getElementById('mapFrame');
+          mapFrame.src = 'https://www.openstreetmap.org/export/embed.html?bbox=' +
+                         (lng - 0.005) + '%2C' + (lat - 0.005) + '%2C' +
+                         (lng + 0.005) + '%2C' + (lat + 0.005) +
+                         '&layer=mapnik&marker=' + lat + '%2C' + lng;
+          mapContainer.classList.remove('hidden');
+
+          coordsDiv.textContent = '📍 LAT: ' + lat.toFixed(6) + ' | LNG: ' + lng.toFixed(6);
+          coordsDiv.classList.remove('hidden');
+
+          showToast('success', '🌟 Cosmic coordinates locked!');
+        },
+        function(error) {
+          statusDiv.classList.remove('searching');
+          statusDiv.classList.add('error');
+
+          var errorMsg = '';
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              errorMsg = '❌ Permission denied! Please allow location access.';
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorMsg = '❌ Signal lost! Location unavailable.';
+              break;
+            case error.TIMEOUT:
+              errorMsg = '❌ Scan timeout! GPS request timed out.';
+              break;
+            default:
+              errorMsg = '❌ Unknown error occurred during scan!';
+              break;
+          }
+
+          statusText.textContent = errorMsg;
+          showToast('error', errorMsg);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 0
+        }
+      );
+    }
+
+    function resetLocationUI() {
+      var statusDiv = document.getElementById('locationStatus');
+      var mapContainer = document.getElementById('mapContainer');
+      var coordsDiv = document.getElementById('locationCoords');
+
+      statusDiv.classList.add('hidden');
+      statusDiv.classList.remove('searching', 'found', 'error');
+      mapContainer.classList.add('hidden');
+      coordsDiv.classList.add('hidden');
+      userLocation = { lat: null, lng: null };
+    }
+        /* ═══════════════════════════════════════════════════
+       🔔 TOAST NOTIFICATIONS — COSMIC ALERTS
+    ═══════════════════════════════════════════════════ */
+    function showToast(type, message) {
+      var container = document.getElementById('toastContainer');
+
+      var toast = document.createElement('div');
+      toast.className = 'toast ' + type;
+
+      var icon = '';
+      if (type === 'success') {
+        icon = '⭐';
+      } else if (type === 'error') {
+        icon = '⚠️';
+      } else {
+        icon = '🌌';
+      }
+
+      toast.innerHTML =
+        '<span class="toast-icon">' + icon + '</span>' +
+        '<span class="toast-message">' + message + '</span>' +
+        '<div class="toast-progress"></div>';
+
+      container.appendChild(toast);
+
+      var autoRemoveTimer = setTimeout(function() {
+        removeToast(toast);
+      }, 2500);
+
+      toast.addEventListener('click', function() {
+        clearTimeout(autoRemoveTimer);
+        removeToast(toast);
+      });
+
+      var allToasts = container.querySelectorAll('.toast');
+      if (allToasts.length > 3) {
+        removeToast(allToasts[0]);
+      }
+    }
+
+    function removeToast(toast) {
+      if (!toast || !toast.parentNode) return;
+      toast.classList.add('removing');
+      setTimeout(function() {
+        if (toast.parentNode) {
+          toast.parentNode.removeChild(toast);
+        }
+      }, 300);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       ⌨️ KEYBOARD SUPPORT — ACCESSIBILITY
+    ═══════════════════════════════════════════════════ */
+    function setupKeyboardListeners() {
+      document.addEventListener('keydown', function(e) {
+        // Escape closes modals
+        if (e.key === 'Escape' || e.keyCode === 27) {
+          var activeModals = document.querySelectorAll('.modal-overlay.active');
+          if (activeModals.length > 0) {
+            closeAllModals();
+            e.preventDefault();
+          }
+        }
+      });
+
+      // Enter on interactive elements
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+          var target = e.target;
+          if (target.classList.contains('order-type-card') ||
+              target.classList.contains('category-nav-btn') ||
+              target.classList.contains('scroll-indicator')) {
+            target.click();
+          }
+        }
+      });
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🌃 NAVBAR HIDE/SHOW ON SCROLL
+    ═══════════════════════════════════════════════════ */
+    (function() {
+      var categoryNav = null;
+      var heroSection = null;
+      var ticking = false;
+
+      document.addEventListener('DOMContentLoaded', function() {
+        categoryNav = document.getElementById('categoryNav');
+        heroSection = document.getElementById('hero');
+      });
+
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          window.requestAnimationFrame(function() {
+            handleNavVisibility();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+
+      function handleNavVisibility() {
+        if (!categoryNav || !heroSection) return;
+        var heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+        var currentScrollY = window.scrollY || window.pageYOffset;
+
+        if (currentScrollY < heroBottom - 100) {
+          categoryNav.style.transform = 'translateY(-100%)';
+          categoryNav.style.transition = 'transform 0.3s ease';
+        } else {
+          categoryNav.style.transform = 'translateY(0)';
+          categoryNav.style.transition = 'transform 0.3s ease';
+        }
+      }
+    })();
+
+    /* ═══════════════════════════════════════════════════
+       🖼️ IMAGE LAZY LOADING FALLBACK
+    ═══════════════════════════════════════════════════ */
+    (function() {
+      if ('loading' in HTMLImageElement.prototype) return;
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var lazyImages = document.querySelectorAll('img[loading="lazy"]');
+
+        if ('IntersectionObserver' in window) {
+          var imgObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                var img = entry.target;
+                img.src = img.src;
+                imgObserver.unobserve(img);
+              }
+            });
+          }, { rootMargin: '200px 0px' });
+
+          lazyImages.forEach(function(img) {
+            imgObserver.observe(img);
+          });
+        }
+      });
+    })();
+
+    /* ═══════════════════════════════════════════════════
+       📊 PERFORMANCE — DEBOUNCE UTILITY
+    ═══════════════════════════════════════════════════ */
+    function debounce(func, wait) {
+      var timeout;
+      return function() {
+        var context = this;
+        var args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+          func.apply(context, args);
+        }, wait);
+      };
+    }
+
+    /* ═══════════════════════════════════════════════════
+       🔄 WINDOW RESIZE HANDLER
+    ═══════════════════════════════════════════════════ */
+    window.addEventListener('resize', debounce(function() {
+      // Smooth scroll nav active button into view (without page jump)
+      var activeBtn = document.querySelector('.category-nav-btn.active');
+      if (activeBtn) {
+        var navInner = document.getElementById('categoryNavInner');
+        if (navInner) {
+          var btnLeft = activeBtn.offsetLeft;
+          var navWidth = navInner.offsetWidth;
+          var btnWidth = activeBtn.offsetWidth;
+          var scrollPos = btnLeft - (navWidth / 2) + (btnWidth / 2);
+          navInner.scrollTo({ left: scrollPos, behavior: 'smooth' });
+        }
+      }
+
+      // Regenerate stars on significant resize
+      var starField = document.getElementById('starField');
+      if (starField) {
+        starField.innerHTML = '';
+        generateStarField();
+      }
+    }, 300));
+
+    /* ═══════════════════════════════════════════════════
+       🎭 PREVENT DOUBLE TAP ZOOM ON MOBILE
+    ═══════════════════════════════════════════════════ */
+    (function() {
+      var lastTouchEnd = 0;
+      document.addEventListener('touchend', function(e) {
+        var now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+          if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+            e.preventDefault();
+          }
+        }
+        lastTouchEnd = now;
+      }, false);
+    })();
+
+    /* ═══════════════════════════════════════════════════
+       🔌 NAV ACTIVE BUTTON — SMOOTH SCROLL IN NAV BAR
+    ═══════════════════════════════════════════════════ */
+    (function() {
+      var originalSetActiveNav = setActiveNav;
+
+      setActiveNav = function(catId) {
+        originalSetActiveNav(catId);
+
+        // Smoothly scroll nav bar to active button (NO page jump)
+        var navInner = document.getElementById('categoryNavInner');
+        var activeBtn = document.querySelector('.category-nav-btn[data-category="' + catId + '"]');
+
+        if (navInner && activeBtn) {
+          var btnLeft = activeBtn.offsetLeft;
+          var navWidth = navInner.offsetWidth;
+          var btnWidth = activeBtn.offsetWidth;
+          var scrollPos = btnLeft - (navWidth / 2) + (btnWidth / 2);
+          navInner.scrollTo({ left: scrollPos, behavior: 'smooth' });
+        }
+      };
+    })();
+
+    /* ═══════════════════════════════════════════════════
+       ☄️ METEOR SHOWER — Random shooting stars
+    ═══════════════════════════════════════════════════ */
+    (function() {
+      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) return;
+
+      document.addEventListener('DOMContentLoaded', function() {
+        setInterval(function() {
+          createMeteor();
+        }, 8000); // every 8 seconds
+      });
+
+      function createMeteor() {
+        var starField = document.getElementById('starField');
+        if (!starField) return;
+
+        var meteor = document.createElement('div');
+        meteor.style.position = 'absolute';
+        meteor.style.top = Math.random() * 30 + '%';
+        meteor.style.right = '0';
+        meteor.style.width = '2px';
+        meteor.style.height = '2px';
+        meteor.style.background = '#fff';
+        meteor.style.borderRadius = '50%';
+        meteor.style.boxShadow = '0 0 6px #fff, -50px 0 30px rgba(255,255,255,0.5), -80px 0 60px rgba(168, 85, 247, 0.3)';
+        meteor.style.animation = 'meteor 2s linear forwards';
+        meteor.style.pointerEvents = 'none';
+        meteor.style.zIndex = '0';
+
+        starField.appendChild(meteor);
+
+        setTimeout(function() {
+          if (meteor.parentNode) {
+            meteor.parentNode.removeChild(meteor);
+          }
+        }, 2000);
+      }
+    })();
+
+    /* ═══════════════════════════════════════════════════
+       🌌 PARALLAX EFFECT — Planets follow mouse (desktop)
+    ═══════════════════════════════════════════════════ */
+    (function() {
+      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion || window.innerWidth < 992) return;
+
+      var planets = [];
+      var ticking = false;
+
+      document.addEventListener('DOMContentLoaded', function() {
+        planets = document.querySelectorAll('.planet-decoration');
+      });
+
+      document.addEventListener('mousemove', function(e) {
+        if (!ticking && planets.length > 0) {
+          window.requestAnimationFrame(function() {
+            var x = (e.clientX / window.innerWidth - 0.5) * 30;
+            var y = (e.clientY / window.innerHeight - 0.5) * 30;
+
+            planets.forEach(function(planet, index) {
+              var depth = (index + 1) * 0.3;
+              planet.style.transform = 'translate(' + (x * depth) + 'px, ' + (y * depth) + 'px)';
+            });
+
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    })();
+
+    /* ═══════════════════════════════════════════════════
+       🎮 EASTER EGG — KONAMI CODE
+       ↑ ↑ ↓ ↓ ← → ← → B A
+    ═══════════════════════════════════════════════════ */
+    (function() {
+      var konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+      var konamiIndex = 0;
+
+      document.addEventListener('keydown', function(e) {
+        if (e.keyCode === konamiCode[konamiIndex]) {
+          konamiIndex++;
+          if (konamiIndex === konamiCode.length) {
+            showToast('success', '🌌🚀 SUPER NOVA UNLOCKED! Welcome, Space Explorer! ✨💜⭐');
+            konamiIndex = 0;
+
+            // Cosmic burst effect
+            document.body.style.transition = 'all 0.5s ease';
+            document.body.style.filter = 'hue-rotate(180deg) saturate(2)';
+            setTimeout(function() {
+              document.body.style.filter = 'none';
+            }, 1500);
+
+            // Spawn multiple meteors
+            for (var i = 0; i < 10; i++) {
+              (function(delay) {
+                setTimeout(function() {
+                  var starField = document.getElementById('starField');
+                  if (starField) {
+                    var meteor = document.createElement('div');
+                    meteor.style.position = 'absolute';
+                    meteor.style.top = Math.random() * 50 + '%';
+                    meteor.style.right = '0';
+                    meteor.style.width = '3px';
+                    meteor.style.height = '3px';
+                    meteor.style.background = '#ff2e63';
+                    meteor.style.borderRadius = '50%';
+                    meteor.style.boxShadow = '0 0 8px #ff2e63, -50px 0 30px rgba(255, 46, 99, 0.6), -100px 0 80px rgba(168, 85, 247, 0.4)';
+                    meteor.style.animation = 'meteor 2s linear forwards';
+                    meteor.style.pointerEvents = 'none';
+                    starField.appendChild(meteor);
+
+                    setTimeout(function() {
+                      if (meteor.parentNode) meteor.parentNode.removeChild(meteor);
+                    }, 2000);
+                  }
+                }, delay * 200);
+              })(i);
+            }
+          }
+        } else {
+          konamiIndex = 0;
+        }
+      });
+    })();
+
+    /* ═══════════════════════════════════════════════════
+       📜 CONSOLE COSMIC GREETING
+    ═══════════════════════════════════════════════════ */
+    console.log(
+      '%c🌌 ROYAL FEAST — COSMIC DINE 🌌',
+      'background: linear-gradient(135deg, #7b2d8e, #ff2e63, #f0c040); color: white; font-size: 24px; font-weight: bold; padding: 12px 24px; border-radius: 10px;'
+    );
+    console.log(
+      '%c✨ An Intergalactic Dining Experience ✨',
+      'color: #a855f7; font-size: 14px; font-style: italic;'
+    );
+    console.log(
+      '%c🚀 شاہی دستر خوان | System v3.0',
+      'color: #f0c040; font-size: 12px;'
+    );
+    console.log(
+      '%c💜 Crafted with love across the cosmos',
+      'color: #6a7090; font-size: 11px;'
+    );
+
+  </script>
+
+</body>
+</html>
