@@ -172,19 +172,6 @@
       100% { transform: scale(1); box-shadow: var(--shadow-card); }
     }
 
-    @keyframes cardFlip {
-      0% { transform: rotateY(0deg); }
-      50% { transform: rotateY(180deg); }
-      100% { transform: rotateY(0deg); }
-    }
-
-    @keyframes flipShowAdded {
-      0% { transform: rotateY(0deg); }
-      50% { transform: rotateY(90deg); }
-      51% { transform: rotateY(90deg); }
-      100% { transform: rotateY(0deg); }
-    }
-
     @keyframes plusOneFloat {
       0% {
         opacity: 0;
@@ -629,8 +616,6 @@
       box-shadow: var(--shadow-card);
       border: 1px solid rgba(168, 85, 247, 0.2);
       height: 480px;
-      perspective: 1000px;
-      transform-style: preserve-3d;
     }
 
     .menu-card:hover {
@@ -667,11 +652,6 @@
     /* PULSE on click */
     .menu-card.pulsing {
       animation: cardPulse 0.6s ease;
-    }
-
-    /* FLIP on click */
-    .menu-card.flipping {
-      animation: flipShowAdded 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     /* Special crown */
@@ -873,43 +853,6 @@
 
     .plus-one-animation.active {
       animation: plusOneFloat 1.2s ease-out forwards;
-    }
-
-    /* "ADDED!" Overlay on flip */
-    .added-overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: var(--grad-cosmic);
-      background-size: 200% auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 40;
-      transition: opacity 0.3s ease;
-      animation: gradientShift 2s ease infinite;
-    }
-
-    .added-overlay.visible {
-      opacity: 1;
-    }
-
-    .added-overlay .check-icon {
-      font-size: 4rem;
-      color: var(--star-white);
-      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
-    }
-
-    .added-overlay .added-text {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      color: var(--star-white);
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     /* "TAP TO ADD" Hint */
@@ -2001,8 +1944,6 @@
       .cart-item-img { width: 45px; height: 45px; }
 
       .plus-one-animation { font-size: 2.5rem; }
-      .added-overlay .check-icon { font-size: 3rem; }
-      .added-overlay .added-text { font-size: 1.2rem; letter-spacing: 3px; }
     }
 
     /* Very Small (360px) */
@@ -2019,7 +1960,7 @@
     @media print {
       .floating-cart, .category-nav, .scroll-indicator,
       .toast-container, .contact-section, .planet-decoration,
-      .star-field, .plus-one-animation, .added-overlay,
+      .star-field, .plus-one-animation,
       .tap-hint { display: none !important; }
       .hero { min-height: auto; padding: 2rem; }
       body { background: #fff; color: #000; }
@@ -2804,12 +2745,6 @@
           // "+1" Floating Animation Element
           html += '<div class="plus-one-animation">+1</div>';
 
-          // "ADDED!" Overlay
-          html += '<div class="added-overlay">';
-          html += '<div class="check-icon">✓</div>';
-          html += '<div class="added-text">Added!</div>';
-          html += '</div>';
-
           // Tap Hint
           html += '<div class="tap-hint">✨ Tap to add ✨</div>';
 
@@ -2910,16 +2845,16 @@
       });
     }
 
-    /* ═══════════════════════════════════════════════════
+  /* ═══════════════════════════════════════════════════
        🎴 ADD TO CART FROM CARD CLICK
-       (Triggers: Pulse + "+1" floating + Flip with "ADDED!")
+       (Triggers: Pulse + "+1" floating)
     ═══════════════════════════════════════════════════ */
     function addToCartFromCard(name, price, img, category, cardId) {
       var card = document.getElementById(cardId);
       if (!card) return;
 
       // Prevent multiple rapid clicks
-      if (card.classList.contains('pulsing') || card.classList.contains('flipping')) {
+      if (card.classList.contains('pulsing')) {
         return;
       }
 
@@ -2940,30 +2875,9 @@
         }, 1200);
       }
 
-      // ═══ EFFECT 3: FLIP CARD + "ADDED!" OVERLAY ═══
-      var overlay = card.querySelector('.added-overlay');
-      if (overlay) {
-        card.classList.add('flipping');
-
-        // Show "ADDED!" overlay at flip mid-point
-        setTimeout(function() {
-          overlay.classList.add('visible');
-        }, 400);
-
-        // Hide overlay and remove flip class
-        setTimeout(function() {
-          overlay.classList.remove('visible');
-        }, 1400);
-
-        setTimeout(function() {
-          card.classList.remove('flipping');
-        }, 800);
-      }
-
       // Add item to cart
       addToCart(name, price, img, category);
     }
-
     /* ═══════════════════════════════════════════════════
        🛒 CART MANAGEMENT
     ═══════════════════════════════════════════════════ */
