@@ -167,13 +167,26 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes cardPulse {
-      0% { transform: scale(1); box-shadow: var(--shadow-card); }
-      50% {
-        transform: scale(1.03);
-        box-shadow: 0 0 40px var(--cosmic-purple-glow), 0 0 80px var(--nebula-pink-glow);
+        @keyframes cardPulseSmooth {
+      0% {
+        transform: translateY(-4px) scale(1);
+        box-shadow:
+          0 12px 35px rgba(0, 0, 0, 0.5),
+          0 0 20px rgba(168, 85, 247, 0.2);
       }
-      100% { transform: scale(1); box-shadow: var(--shadow-card); }
+      50% {
+        transform: translateY(-4px) scale(1.015);
+        box-shadow:
+          0 -3px 20px var(--cosmic-purple-glow),
+          0 15px 35px rgba(0, 0, 0, 0.5),
+          0 20px 30px var(--nebula-pink-glow);
+      }
+      100% {
+        transform: translateY(-4px) scale(1);
+        box-shadow:
+          0 12px 35px rgba(0, 0, 0, 0.5),
+          0 0 20px rgba(168, 85, 247, 0.2);
+      }
     }
 
     @keyframes plusOneFloat {
@@ -612,52 +625,70 @@
       margin: 0 auto;
     }
 
-    .menu-card {
+        .menu-card {
       position: relative;
       background: linear-gradient(135deg, var(--space-mid) 0%, var(--space-light) 100%);
       border-radius: 20px;
       overflow: hidden;
-      transition: var(--transition-smooth);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: var(--shadow-card);
       border: 1px solid rgba(168, 85, 247, 0.2);
       display: flex;
       min-height: 220px;
+      will-change: transform;
     }
 
     .menu-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--cosmic-purple-light);
+      transform: translateY(-4px);
       box-shadow:
-        0 15px 50px rgba(0, 0, 0, 0.6),
-        0 0 30px var(--cosmic-purple-glow);
+        0 12px 35px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(168, 85, 247, 0.2);
     }
 
-    /* Cosmic aurora border on hover */
+    /* Cosmic neon border — ONLY TOP & BOTTOM */
     .menu-card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: 20px;
-      padding: 2px;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
       background: var(--grad-aurora);
       background-size: 200% 200%;
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
       opacity: 0;
       transition: opacity 0.4s ease;
       animation: gradientShift 4s ease infinite;
       pointer-events: none;
       z-index: 10;
+      border-radius: 20px 20px 0 0;
     }
 
-    .menu-card:hover::before {
+    .menu-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--grad-aurora);
+      background-size: 200% 200%;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      animation: gradientShift 4s ease infinite reverse;
+      pointer-events: none;
+      z-index: 10;
+      border-radius: 0 0 20px 20px;
+    }
+
+    .menu-card:hover::before,
+    .menu-card:hover::after {
       opacity: 1;
-    }
+  }
 
-    /* PULSE on click */
+        /* PULSE on click — Smooth & Subtle */
     .menu-card.pulsing {
-      animation: cardPulse 0.6s ease;
+      animation: cardPulseSmooth 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     /* Special crown */
@@ -2867,31 +2898,38 @@
       });
     }
 
-  /* ═══════════════════════════════════════════════════
+    /* ═══════════════════════════════════════════════════
        🎴 ADD TO CART FROM CARD CLICK
-       (Triggers: Pulse + "+1" floating)
+       (Triggers: Smooth Pulse + "+1" floating)
     ═══════════════════════════════════════════════════ */
     function addToCartFromCard(name, price, img, category, cardId) {
       var card = document.getElementById(cardId);
       if (!card) return;
 
-      // Prevent multiple rapid clicks
+      // Prevent rapid clicks during animation
       if (card.classList.contains('pulsing')) {
         return;
       }
 
-      // ═══ EFFECT 1: PULSE GLOW ═══
-      card.classList.add('pulsing');
+      // ═══ EFFECT 1: SMOOTH PULSE (Top+Bottom neon glow) ═══
+      requestAnimationFrame(function() {
+        card.classList.add('pulsing');
+      });
+
       setTimeout(function() {
         card.classList.remove('pulsing');
-      }, 600);
+      }, 500);
 
       // ═══ EFFECT 2: "+1" FLOATING ANIMATION ═══
       var plusOne = card.querySelector('.plus-one-animation');
       if (plusOne) {
         plusOne.classList.remove('active');
-        void plusOne.offsetWidth; // force reflow
-        plusOne.classList.add('active');
+        // Use rAF instead of offsetWidth for smoother reflow
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            plusOne.classList.add('active');
+          });
+        });
         setTimeout(function() {
           plusOne.classList.remove('active');
         }, 1200);
