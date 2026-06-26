@@ -597,41 +597,44 @@
       filter: drop-shadow(0 0 8px var(--galaxy-gold-glow));
     }
 
-    /* ═══════════════════════════════════════════════════
-       🎴 TRIANGULAR CARDS — DIAGONAL SPLIT (UNIQUE!)
+       /* ═══════════════════════════════════════════════════
+       🎴 HORIZONTAL ALTERNATING CARDS (NEW DESIGN!)
     ═══════════════════════════════════════════════════ */
     .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
     .menu-card {
       position: relative;
-      background: var(--space-mid);
-      border-radius: var(--card-radius);
+      background: linear-gradient(135deg, var(--space-mid) 0%, var(--space-light) 100%);
+      border-radius: 20px;
       overflow: hidden;
       cursor: pointer;
       transition: var(--transition-smooth);
       box-shadow: var(--shadow-card);
       border: 1px solid rgba(168, 85, 247, 0.2);
-      height: 480px;
+      display: flex;
+      min-height: 220px;
     }
 
     .menu-card:hover {
-      transform: translateY(-8px);
+      transform: translateY(-5px);
       border-color: var(--cosmic-purple-light);
       box-shadow:
         0 15px 50px rgba(0, 0, 0, 0.6),
         0 0 30px var(--cosmic-purple-glow);
     }
 
-    /* Cosmic glow border on hover */
+    /* Cosmic aurora border on hover */
     .menu-card::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: var(--card-radius);
+      border-radius: 20px;
       padding: 2px;
       background: var(--grad-aurora);
       background-size: 200% 200%;
@@ -659,7 +662,8 @@
       content: '⭐';
       position: absolute;
       top: 12px;
-      right: 12px;
+      left: 50%;
+      transform: translateX(-50%);
       width: 36px;
       height: 36px;
       display: flex;
@@ -670,168 +674,150 @@
       border-radius: 50%;
       z-index: 20;
       box-shadow: 0 0 15px var(--galaxy-gold-glow);
-      filter: drop-shadow(0 0 5px var(--galaxy-gold));
     }
 
-    /* Card Inner Wrapper (for diagonal split) */
-    .card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    /* TOP TRIANGLE (Upper-Left) */
-    .triangle-top {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      clip-path: polygon(0 0, 100% 0, 0 100%);
-      background: linear-gradient(135deg, var(--space-light) 0%, var(--space-mid) 60%, var(--cosmic-purple) 100%);
+    /* ═══ CARD CONTENT (Left side or Right side) ═══ */
+    .card-content {
+      flex: 1;
+      padding: 1.5rem 1.8rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 1.5rem;
-      z-index: 2;
+      gap: 0.7rem;
+      min-width: 0;
     }
 
-    .triangle-top .top-image-wrapper {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 3px solid var(--galaxy-gold);
-      box-shadow: 0 0 20px var(--galaxy-gold-glow);
-      margin-bottom: 0.5rem;
-      flex-shrink: 0;
-    }
-
-    .triangle-top .top-image-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .triangle-top .top-name {
-      font-family: var(--font-heading);
-      font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+    .card-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
       font-weight: 700;
       color: var(--star-white);
-      max-width: 60%;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(135deg, var(--star-white) 0%, var(--galaxy-gold-light) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
       line-height: 1.3;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-desc {
+      font-family: var(--font-body);
+      font-size: clamp(0.85rem, 1.8vw, 0.92rem);
+      color: var(--star-dim);
+      line-height: 1.5;
+      flex-grow: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-style: italic;
+    }
+
+    .card-price {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2.3vw, 1.3rem);
+      font-weight: 700;
+      color: var(--galaxy-gold);
+      text-shadow: 0 0 12px var(--galaxy-gold-glow);
+      letter-spacing: 1px;
       margin-top: 0.3rem;
     }
 
-    .triangle-top .top-desc {
-      font-family: var(--font-body);
-      font-size: 0.78rem;
-      color: var(--star-dim);
-      max-width: 50%;
-      line-height: 1.4;
-      font-style: italic;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+    .card-price .currency {
+      font-size: 0.85em;
+      opacity: 0.9;
     }
 
-    .triangle-top .top-price {
-      font-family: var(--font-display);
-      font-size: clamp(0.95rem, 2.2vw, 1.15rem);
-      font-weight: 700;
-      color: var(--galaxy-gold);
-      text-shadow: 0 0 10px var(--galaxy-gold-glow);
+    /* ═══ ADD TO CART BUTTON ═══ */
+    .card-btn {
       align-self: flex-start;
-      margin-left: 25%;
-    }
-
-    /* DIAGONAL DIVIDER LINE */
-    .diagonal-line {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 3;
-    }
-
-    .diagonal-line::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 141.42%;
-      height: 3px;
+      padding: 0.7rem 1.5rem;
       background: var(--grad-cosmic);
       background-size: 200% auto;
-      transform-origin: top left;
-      transform: rotate(45deg);
-      animation: gradientShift 3s ease infinite;
-      box-shadow: 0 0 20px var(--cosmic-purple-glow);
-    }
-
-    /* BOTTOM TRIANGLE (Lower-Right) */
-    .triangle-bottom {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      clip-path: polygon(100% 0, 100% 100%, 0 100%);
-      background: linear-gradient(315deg, var(--space-light) 0%, var(--space-mid) 60%, var(--nebula-pink) 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: flex-end;
-      padding: 1.5rem;
-      z-index: 2;
-    }
-
-    .triangle-bottom .bot-price {
-      font-family: var(--font-display);
-      font-size: clamp(0.95rem, 2.2vw, 1.15rem);
-      font-weight: 700;
-      color: var(--galaxy-gold);
-      text-shadow: 0 0 10px var(--galaxy-gold-glow);
-      margin-right: 25%;
-    }
-
-    .triangle-bottom .bot-desc {
-      font-family: var(--font-body);
-      font-size: 0.78rem;
-      color: var(--star-dim);
-      max-width: 50%;
-      line-height: 1.4;
-      font-style: italic;
-      text-align: right;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .triangle-bottom .bot-name {
-      font-family: var(--font-heading);
-      font-size: clamp(0.95rem, 2.2vw, 1.1rem);
-      font-weight: 700;
       color: var(--star-white);
-      max-width: 60%;
-      line-height: 1.3;
-      text-align: right;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-      margin-bottom: 0.3rem;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 50px;
+      transition: var(--transition-smooth);
+      box-shadow: 0 4px 15px var(--cosmic-purple-glow);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      animation: gradientShift 4s ease infinite;
+      margin-top: 0.5rem;
+      pointer-events: none;
     }
 
-    .triangle-bottom .bot-image-wrapper {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
+    .menu-card:hover .card-btn {
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px var(--cosmic-purple-glow), 0 0 20px var(--nebula-pink-glow);
+    }
+
+    /* ═══ CARD IMAGE (Right side or Left side) ═══ */
+    .card-image-wrapper {
+      flex: 0 0 40%;
+      max-width: 280px;
+      position: relative;
       overflow: hidden;
-      border: 3px solid var(--nebula-pink);
-      box-shadow: 0 0 20px var(--nebula-pink-glow);
-      flex-shrink: 0;
+      background: var(--space-deep);
     }
 
-    .triangle-bottom .bot-image-wrapper img {
+    .card-image-wrapper img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.5s ease, filter 0.3s ease;
+      filter: saturate(1.1);
+    }
+
+    .menu-card:hover .card-image-wrapper img {
+      transform: scale(1.1);
+      filter: saturate(1.3);
+    }
+
+    /* Image gradient overlay */
+    .card-image-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 60px;
+      pointer-events: none;
+    }
+
+    /* ═══ ALTERNATING LAYOUT — Image position swap ═══ */
+
+    /* ODD cards: Content LEFT, Image RIGHT */
+    .menu-card:nth-child(odd) .card-content {
+      order: 1;
+    }
+    .menu-card:nth-child(odd) .card-image-wrapper {
+      order: 2;
+    }
+    .menu-card:nth-child(odd) .card-image-wrapper::after {
+      left: 0;
+      background: linear-gradient(90deg, var(--space-mid), transparent);
+    }
+
+    /* EVEN cards: Image LEFT, Content RIGHT */
+    .menu-card:nth-child(even) .card-content {
+      order: 2;
+    }
+    .menu-card:nth-child(even) .card-image-wrapper {
+      order: 1;
+    }
+    .menu-card:nth-child(even) .card-image-wrapper::after {
+      right: 0;
+      background: linear-gradient(-90deg, var(--space-mid), transparent);
+    }
+
+    /* Text alignment for even cards (right-aligned feel) */
+    .menu-card:nth-child(even) .card-content {
+      text-align: left;
     }
 
     /* "+1" FLOATING ANIMATION */
@@ -840,7 +826,7 @@
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       font-family: var(--font-display);
-      font-size: 3rem;
+      font-size: 3.5rem;
       font-weight: 900;
       color: var(--galaxy-gold);
       text-shadow:
@@ -858,11 +844,11 @@
     /* "TAP TO ADD" Hint */
     .tap-hint {
       position: absolute;
-      bottom: 12px;
+      bottom: 8px;
       left: 50%;
       transform: translateX(-50%);
       font-family: var(--font-heading);
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       color: var(--cosmic-cyan);
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -870,7 +856,7 @@
       transition: opacity 0.3s ease;
       z-index: 5;
       background: rgba(0, 217, 255, 0.1);
-      padding: 0.3rem 0.8rem;
+      padding: 0.25rem 0.7rem;
       border-radius: 20px;
       border: 1px solid rgba(0, 217, 255, 0.3);
       pointer-events: none;
@@ -879,31 +865,6 @@
 
     .menu-card:hover .tap-hint {
       opacity: 1;
-    }
-
-    /* Section Divider */
-    .section-divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      padding: 2rem 0;
-    }
-
-    .section-divider .star-line {
-      flex: 1;
-      max-width: 150px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--cosmic-purple-light), transparent);
-    }
-
-    .section-divider .star-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--galaxy-gold);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--galaxy-gold-glow);
-      animation: twinkle 2s infinite;
     }
  /* ═══════════════════════════════════════════════════
        PART 2: Continuing inside <style> tag from Part 1
@@ -1864,17 +1825,19 @@
       .menu-grid { grid-template-columns: repeat(3, 1fr); }
     }
 
-    /* Tablet Landscape (992-1199px) */
+        /* Tablet Landscape (992-1199px) */
     @media (max-width: 1199px) {
-      .menu-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+      .menu-grid { max-width: 800px; }
     }
 
     /* Tablet Portrait (768-991px) */
     @media (max-width: 991px) {
-      .menu-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
       .contact-grid { grid-template-columns: 1fr; }
       .planet-decoration { width: 40px !important; height: 40px !important; }
       .planet-2 { width: 55px !important; height: 55px !important; }
+      .menu-grid { max-width: 700px; }
+      .menu-card { min-height: 200px; }
+      .card-image-wrapper { flex: 0 0 38%; }
     }
 
     /* Mobile Large (577-767px) */
@@ -1886,18 +1849,47 @@
 
       .hero-details { flex-direction: column; gap: 0.6rem; align-items: center; }
 
-      .menu-grid { grid-template-columns: 1fr; gap: 1.2rem; }
-      .menu-card { height: 420px; }
+      /* Mobile: Stack vertically — image always on top */
+      .menu-grid { gap: 1.2rem; max-width: 100%; }
+      .menu-card {
+        flex-direction: column !important;
+        min-height: auto;
+      }
 
-      .triangle-top, .triangle-bottom { padding: 1.2rem; }
-      .triangle-top .top-image-wrapper,
-      .triangle-bottom .bot-image-wrapper { width: 75px; height: 75px; }
+      .menu-card .card-content,
+      .menu-card .card-image-wrapper {
+        order: initial !important;
+      }
 
-      .triangle-top .top-name,
-      .triangle-bottom .bot-name { font-size: 0.95rem; }
+      .menu-card:nth-child(odd) .card-content,
+      .menu-card:nth-child(even) .card-content {
+        order: 2 !important;
+      }
 
-      .triangle-top .top-desc,
-      .triangle-bottom .bot-desc { font-size: 0.72rem; max-width: 55%; }
+      .menu-card:nth-child(odd) .card-image-wrapper,
+      .menu-card:nth-child(even) .card-image-wrapper {
+        order: 1 !important;
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 100%;
+        height: 200px;
+      }
+
+      .menu-card:nth-child(odd) .card-image-wrapper::after,
+      .menu-card:nth-child(even) .card-image-wrapper::after {
+        left: 0;
+        right: 0;
+        top: auto;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
+        background: linear-gradient(0deg, var(--space-mid), transparent);
+      }
+
+      .card-content { padding: 1.2rem 1.4rem; }
+      .card-name { font-size: 1.1rem; }
+      .card-desc { font-size: 0.85rem; -webkit-line-clamp: 2; }
+      .card-price { font-size: 1.15rem; }
 
       .floating-cart { width: 58px; height: 58px; font-size: 1.5rem; bottom: 1.5rem; right: 1.5rem; }
 
@@ -1918,21 +1910,16 @@
       .hero-title { font-size: 1.8rem; letter-spacing: 2px; }
       .hero-title-urdu { font-size: 1.2rem; }
 
-      .menu-card { height: 400px; }
-      .menu-grid { gap: 1rem; }
+      .menu-card:nth-child(odd) .card-image-wrapper,
+      .menu-card:nth-child(even) .card-image-wrapper {
+        height: 180px;
+      }
 
-      .triangle-top, .triangle-bottom { padding: 1rem; }
-      .triangle-top .top-image-wrapper,
-      .triangle-bottom .bot-image-wrapper { width: 65px; height: 65px; }
-
-      .triangle-top .top-name,
-      .triangle-bottom .bot-name { font-size: 0.88rem; max-width: 55%; }
-
-      .triangle-top .top-price,
-      .triangle-bottom .bot-price { font-size: 0.95rem; }
-
-      .triangle-top .top-desc,
-      .triangle-bottom .bot-desc { font-size: 0.7rem; max-width: 50%; }
+      .card-content { padding: 1rem 1.2rem; gap: 0.5rem; }
+      .card-name { font-size: 1rem; }
+      .card-desc { font-size: 0.8rem; }
+      .card-price { font-size: 1rem; }
+      .card-btn { padding: 0.6rem 1.2rem; font-size: 0.75rem; }
 
       .category-nav-btn { padding: 0.5rem 0.9rem; font-size: 0.72rem; }
       .category-title { font-size: 1.4rem; letter-spacing: 2px; }
@@ -1949,13 +1936,10 @@
     /* Very Small (360px) */
     @media (max-width: 360px) {
       .hero-title { font-size: 1.5rem; }
-      .menu-card { height: 380px; }
-      .triangle-top .top-name,
-      .triangle-bottom .bot-name { font-size: 0.82rem; }
-      .triangle-top .top-desc,
-      .triangle-bottom .bot-desc { font-size: 0.68rem; }
+      .card-name { font-size: 0.95rem; }
+      .card-desc { font-size: 0.78rem; }
+      .card-btn { padding: 0.5rem 1rem; font-size: 0.7rem; }
     }
-
     /* Print */
     @media print {
       .floating-cart, .category-nav, .scroll-indicator,
@@ -2677,8 +2661,8 @@
       navInner.innerHTML = navHTML;
     }
 
-    /* ═══════════════════════════════════════════════════
-       🎴 RENDER MENU SECTIONS — TRIANGULAR CARDS
+       /* ═══════════════════════════════════════════════════
+       🎴 RENDER MENU SECTIONS — HORIZONTAL ALTERNATING
     ═══════════════════════════════════════════════════ */
     function renderMenuSections() {
       var container = document.getElementById('menuSections');
@@ -2702,13 +2686,13 @@
         html += '</div>';
         html += '</div>';
 
-        // Menu Grid
+        // Menu Grid (Horizontal alternating cards)
         html += '<div class="menu-grid">';
 
         category.items.forEach(function(item, itemIndex) {
           var cardClass = isSpecial ? 'menu-card special' : 'menu-card';
           var cardId = 'card-' + catIndex + '-' + itemIndex;
-          var fallbackImg = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect fill=%22%237b2d8e%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2280%22%3E' + icon + '%3C/text%3E%3C/svg%3E';
+          var fallbackImg = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 400%22%3E%3Crect fill=%22%237b2d8e%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%22120%22%3E' + icon + '%3C/text%3E%3C/svg%3E';
 
           // Whole card is clickable
           html += '<div class="' + cardClass + '" id="' + cardId + '" ' +
@@ -2717,38 +2701,27 @@
                   'onkeydown="if(event.key===\'Enter\' || event.key===\' \'){event.preventDefault();this.click();}" ' +
                   'aria-label="Add ' + item.name + ' to cart for ' + RESTAURANT.currency + ' ' + item.price + '">';
 
-          html += '<div class="card-inner">';
+          // CARD CONTENT
+          html += '<div class="card-content">';
+          html += '<div>';
+          html += '<h3 class="card-name">' + item.name + '</h3>';
+          html += '</div>';
+          html += '<p class="card-desc">' + item.desc + '</p>';
+          html += '<div class="card-price"><span class="currency">' + RESTAURANT.currency + '</span> ' + item.price + '</div>';
+          html += '<button class="card-btn" type="button" tabindex="-1" aria-hidden="true">🛒 Add to Cart</button>';
+          html += '</div>';
 
-          // TOP TRIANGLE (Upper Left)
-          html += '<div class="triangle-top">';
-          html += '<div class="top-image-wrapper">';
+          // CARD IMAGE
+          html += '<div class="card-image-wrapper">';
           html += '<img src="' + item.img + '" alt="' + item.name + '" loading="lazy" onerror="this.src=\'' + fallbackImg + '\'">';
           html += '</div>';
-          html += '<div class="top-name">' + item.name + '</div>';
-          html += '<div class="top-desc">' + truncateText(item.desc, 60) + '</div>';
-          html += '<div class="top-price">' + RESTAURANT.currency + ' ' + item.price + '</div>';
-          html += '</div>';
 
-          // DIAGONAL LINE
-          html += '<div class="diagonal-line"></div>';
-
-          // BOTTOM TRIANGLE (Lower Right)
-          html += '<div class="triangle-bottom">';
-          html += '<div class="bot-price">' + RESTAURANT.currency + ' ' + item.price + '</div>';
-          html += '<div class="bot-desc">' + truncateText(item.desc, 60) + '</div>';
-          html += '<div class="bot-name">' + item.name + '</div>';
-          html += '<div class="bot-image-wrapper">';
-          html += '<img src="' + item.img + '" alt="' + item.name + '" loading="lazy" onerror="this.src=\'' + fallbackImg + '\'">';
-          html += '</div>';
-          html += '</div>';
-
-          // "+1" Floating Animation Element
+          // "+1" Floating Animation
           html += '<div class="plus-one-animation">+1</div>';
 
           // Tap Hint
           html += '<div class="tap-hint">✨ Tap to add ✨</div>';
 
-          html += '</div>'; // card-inner
           html += '</div>'; // menu-card
         });
 
@@ -2768,7 +2741,6 @@
 
       container.innerHTML = html;
     }
-
     /* ═══════════════════════════════════════════════════
        🔧 UTILITY FUNCTIONS
     ═══════════════════════════════════════════════════ */
