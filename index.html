@@ -304,7 +304,7 @@
     }
 
     /* Nebula glow effect */
-    .hero::before {
+  /*  .hero::before {
       content: '';
       position: absolute;
       top: 50%; left: 50%;
@@ -318,7 +318,7 @@
       pointer-events: none;
       z-index: -1;
       animation: nebulaPulse 8s infinite ease-in-out;
-      filter: blur(40px);
+      filter: blur(40px);*/
     }
 
     .hero > * { position: relative; z-index: 2; }
@@ -2661,7 +2661,7 @@
     /* ═══════════════════════════════════════════════════
        ⭐ STAR FIELD GENERATOR
     ═══════════════════════════════════════════════════ */
-    function generateStarField() {
+  /*  function generateStarField() {
       var starField = document.getElementById('starField');
       if (!starField) return;
 
@@ -2686,6 +2686,35 @@
 
         starField.appendChild(star);
       }
+    }*/
+        /* ═══════════════════════════════════════════════════
+       ⭐ STAR FIELD GENERATOR — ULTRA LIGHT (Static)
+    ═══════════════════════════════════════════════════ */
+    function generateStarField() {
+      var starField = document.getElementById('starField');
+      if (!starField) return;
+
+      // Reduced count for performance
+      var starCount = window.innerWidth > 768 ? 40 : 20;
+
+      var fragment = document.createDocumentFragment();
+
+      for (var i = 0; i < starCount; i++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+
+        var size = Math.random() * 2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.opacity = (0.3 + Math.random() * 0.5).toString();
+
+        // No glow shadow — performance boost
+        fragment.appendChild(star);
+      }
+
+      starField.appendChild(fragment);
     }
 
     /* ═══════════════════════════════════════════════════
@@ -3662,7 +3691,7 @@
     /* ═══════════════════════════════════════════════════
        ☄️ METEOR SHOWER — Random shooting stars
     ═══════════════════════════════════════════════════ */
-    (function() {
+ /*   (function() {
       var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (prefersReducedMotion) return;
 
@@ -3697,12 +3726,12 @@
           }
         }, 2000);
       }
-    })();
+    })();*/
 
     /* ═══════════════════════════════════════════════════
        🌌 PARALLAX EFFECT — Planets follow mouse (desktop)
     ═══════════════════════════════════════════════════ */
-    (function() {
+ /*   (function() {
       var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (prefersReducedMotion || window.innerWidth < 992) return;
 
@@ -3729,7 +3758,7 @@
           ticking = true;
         }
       });
-    })();
+    })();*/
 
     /* ═══════════════════════════════════════════════════
        🎮 EASTER EGG — KONAMI CODE
